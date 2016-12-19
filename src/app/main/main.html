@@ -1,0 +1,63 @@
+<div layout="vertical" layout-fill>
+
+  <md-content flex>
+    <header>
+      <jk-carousel data="main.arrayData" item-template-url="'item-template.html'" max-height="400">
+      </jk-carousel>
+      <md-toolbar md-scroll-shrink ng-if="true">
+        <div class="md-toolbar-tools" flex-offset="5">
+          Начало Рецепти
+        </div>
+      </md-toolbar>
+    </header>
+
+    <section>
+      <md-content class="md-padding" layout-xs="column" layout="row" flex-offset="5" flex="90">
+        <div flex-gt-xs="100" layout="column">
+          <md-card md-theme-watch>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Солен хрупкав кекс</span>
+                <span class="md-subhead">Ядките и триците се минават през блендер за да се получи брашняна смес. Добавят се к. мляко, разбъркано със софата, яйцата и изварата. Бърка се до получаването на хомогвнна смес. Изсипват се семената при сместта, обърква се и се изсипват във форма за кекс, покрита с хартия за печене. Пече се в предварително загрята фурна на 180° докато клечката излезе суха.</span>
+                <md-card-actions layout="row" layout-align="end center">
+                  <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">прочети повече</md-button>
+                </md-card-actions>
+              </md-card-title-text>
+              <md-card-title-media>
+                <div>
+                  <img src="assets/images/reciepts/bread.jpg" />
+                </div>
+              </md-card-title-media>
+            </md-card-title>
+          </md-card>
+
+          <md-card md-theme-watch>
+            <md-card-title>
+              <md-card-title-media>
+                <div>
+                  <img src="assets/images/reciepts/bread.jpg" />
+                </div>
+              </md-card-title-media>
+              <md-card-title-text layout-margin>
+                <span class="md-headline">Солен хрупкав кекс</span>
+                <div layout="row" layout-align="start none">
+                  <div><i class="material-icons">access_time</i></div>
+                  <div>&nbsp<strong><i>30 min</i></div></strong>
+                  </div>
+
+
+                  <span class="md-subhead">Ядките и триците се минават през блендер за да се получи брашняна смес. Добавят се к. мляко, разбъркано със софата, яйцата и изварата. Бърка се до получаването на хомогвнна смес. Изсипват се семената при сместта, обърква се и се изсипват във форма за кекс, покрита с хартия за печене. Пече се в предварително загрята фурна на 180° докато клечката излезе суха.</span>
+                  <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">прочети повече</md-button>
+                  </md-card-actions>
+              </md-card-title-text>
+
+            </md-card-title>
+          </md-card>
+          </div>
+
+      </md-content>
+    </section>
+  </md-content>
+
+  </div>
