@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, $log, webDevTec, toastr) {
+  function MainController($timeout, $log, $http, webDevTec, toastr) {
     var vm = this;
     vm.arrayData = [
       { src: '../assets/images/vegie.jpg' },
@@ -16,9 +16,18 @@
     vm.currentNavItem = 'page1';
     vm.awesomeThings = [];
     vm.classAnimation = '';
-    
+    vm.reciepts = [];
     vm.creationDate = 1482059795109;
     vm.showToastr = showToastr;
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8080/reciepts'
+    }).then(function successCallback(resp) {
+      vm.reciepts = resp.data;
+    }, function errorCallback(response) {
+      $log.info(response);
+    });
 
     activate();
 
