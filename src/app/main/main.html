@@ -1,15 +1,9 @@
 <div layout="vertical" layout-fill>
 
   <md-content flex>
-    <header>
-      <jk-carousel data="main.arrayData" item-template-url="'item-template.html'" max-height="400">
-      </jk-carousel>
-      <md-toolbar md-scroll-shrink ng-if="true">
-        <div class="md-toolbar-tools" flex-offset="5">
-          Начало Рецепти
-        </div>
-      </md-toolbar>
-    </header>
+    <jk-carousel data="main.arrayData" item-template-url="'./item-template.html'" max-height="400">
+    </jk-carousel>
+
 
     <section>
       <md-content class="md-padding" layout-xs="column" layout="row" flex-offset="5" flex="90">
@@ -20,7 +14,7 @@
                 <span class="md-headline">{{reciept.title}}</span>
                 <div layout="row" layout-align="start none">
                   <div><i class="material-icons">access_time</i></div>
-                  <div>&nbsp<strong><i>30 min</i></strong></div>
+                  <div>&nbsp<strong><i>{{reciept.cookingTime}} min</i></strong></div>
                 </div>
                 <span class="md-subhead">{{reciept.shortDescription}}</span>
                 <md-card-actions layout="row" layout-align="end center">
@@ -35,7 +29,7 @@
             </md-card-title>
           </md-card>
 
-          
+
         </div>
 
       </md-content>

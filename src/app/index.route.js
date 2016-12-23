@@ -12,6 +12,11 @@
         controller: 'MainController',
         controllerAs: 'main'
       })
+      .when('/reciept/:id', {
+        templateUrl: 'app/reciept/reciept.html',
+        controller: 'RecieptController',
+        controllerAs: 'reciept'
+      })
       .otherwise({
         redirectTo: '/'
       });

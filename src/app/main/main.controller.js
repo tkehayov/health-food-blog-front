@@ -9,8 +9,8 @@
   function MainController($timeout, $log, $http, webDevTec, toastr) {
     var vm = this;
     vm.arrayData = [
-      { src: '../assets/images/vegie.jpg' },
-      { src: '../assets/images/cooking.jpg' }
+      { src: './assets/images/vegie.jpg' },
+      { src: './assets/images/cooking.jpg' }
     ];
 
     vm.currentNavItem = 'page1';
