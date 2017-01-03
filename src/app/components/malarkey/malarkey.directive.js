@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('cakeryFrontend')
+    .module('cakeryFront')
     .directive('acmeMalarkey', acmeMalarkey);
 
   /** @ngInject */

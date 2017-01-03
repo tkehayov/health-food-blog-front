@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('cakeryFrontend')
+    .module('cakeryFront')
     .constant('malarkey', malarkey)
     .constant('moment', moment);
 

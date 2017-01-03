@@ -2,32 +2,27 @@
   'use strict';
 
   angular
-    .module('cakeryFrontend')
+    .module('cakeryFront')
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, $log, $http, webDevTec, toastr) {
+  function MainController($timeout,$injector, webDevTec, toastr) {
     var vm = this;
-    vm.arrayData = [
-      { src: './assets/images/vegie.jpg' },
-      { src: './assets/images/cooking.jpg' }
-    ];
 
-    vm.currentNavItem = 'page1';
     vm.awesomeThings = [];
     vm.classAnimation = '';
-    vm.reciepts = [];
-    vm.creationDate = 1482059795109;
+    vm.creationDate = 1482957772914;
     vm.showToastr = showToastr;
 
-    $http({
-      method: 'GET',
-      url: 'http://localhost:8080/reciepts'
-    }).then(function successCallback(resp) {
-      vm.reciepts = resp.data;
-    }, function errorCallback(response) {
-      $log.info(response);
-    });
+vm.myInterval = 3000;
+  vm.slides = [
+    {
+      image: 'assets/images/vegie.jpg'
+    },
+    {
+      image: 'assets/images/cooking.jpg'
+    }
+  ];
 
     activate();
 

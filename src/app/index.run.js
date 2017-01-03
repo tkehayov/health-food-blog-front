@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('cakeryFrontend')
+    .module('cakeryFront')
     .run(runBlock);
 
   /** @ngInject */

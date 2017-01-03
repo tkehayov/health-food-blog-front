@@ -1,12 +1,11 @@
 {
-  "name": "cakeryFrontend",
+  "name": "cakeryFront",
   "version": "0.0.0",
   "dependencies": {},
   "scripts": {
     "test": "gulp test"
   },
   "devDependencies": {
-    "angular-jk-carousel": "^0.1.8",
     "browser-sync": "~2.9.11",
     "browser-sync-spa": "~1.0.3",
     "chalk": "~1.1.1",

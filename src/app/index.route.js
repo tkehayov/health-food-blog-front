@@ -2,24 +2,20 @@
   'use strict';
 
   angular
-    .module('cakeryFrontend')
-    .config(routeConfig);
+    .module('cakeryFront')
+    .config(routerConfig);
 
-  function routeConfig($routeProvider) {
-    $routeProvider
-      .when('/', {
+  /** @ngInject */
+  function routerConfig($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('home', {
+        url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
-      })
-      .when('/reciept/:id', {
-        templateUrl: 'app/reciept/reciept.html',
-        controller: 'RecieptController',
-        controllerAs: 'reciept'
-      })
-      .otherwise({
-        redirectTo: '/'
       });
+
+    $urlRouterProvider.otherwise('/');
   }
 
 })();
