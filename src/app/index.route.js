@@ -15,6 +15,13 @@
         controllerAs: 'main'
       });
 
+    $stateProvider
+      .state('reciept', {
+        url: '/admin/reciept',
+        templateUrl: 'app/admin/reciept/reciept.html',
+        controller: 'AdminRecieptController',
+        controllerAs: 'adminReciept'
+      });
     $urlRouterProvider.otherwise('/');
   }
 
