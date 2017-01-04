@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout,$injector, webDevTec, toastr) {
+  function MainController($timeout, $injector, webDevTec, toastr) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -14,15 +14,15 @@
     vm.creationDate = 1482957772914;
     vm.showToastr = showToastr;
 
-vm.myInterval = 3000;
-  vm.slides = [
-    {
-      image: 'assets/images/vegie.jpg'
-    },
-    {
-      image: 'assets/images/cooking.jpg'
-    }
-  ];
+    vm.myInterval = 3000;
+    vm.slides = [
+      {
+        image: 'assets/images/vegie.jpg'
+      },
+      {
+        image: 'assets/images/cooking.jpg'
+      }
+    ];
 
     activate();
 
