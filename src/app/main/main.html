@@ -21,14 +21,16 @@
   <div class="container">
     <div class="well" ng-repeat="reciept in main.reciepts">
       <div class="media">
-        <a class="pull-left" href="#">
+        <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left' " href="#">
           <img class="media-object" src="./bread.jpg" alt="...">
         </a>
         <div class="media-body">
-          <h2 class="media-heading "><a class="recipe-title" href="/#title-url">{{reciept.title}}</a></h2>
+          <h2 class="media-heading "><a class="recipe-title" href="/#title-url"> {{reciept.title}}</a></h2>
           <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.cookingTime}} min</p>
           <p>{{reciept.shortDescription}}
           </p>
+          <p><a class="read-more" href="/#">прочети повече</a></p>
+            
 
         </div>
       </div>
