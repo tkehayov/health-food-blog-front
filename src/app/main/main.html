@@ -19,18 +19,15 @@
   <!--start test here-->
 
   <div class="container">
-    <div class="">
+    <div class="well" ng-repeat="reciept in main.reciepts">
       <div class="media">
         <a class="pull-left" href="#">
           <img class="media-object" src="./bread.jpg" alt="...">
         </a>
         <div class="media-body">
-          <h2 class="media-heading "><a class="recipe-title" href="/#title-url">Easy Sushi</a></h2>
-          <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> 30 min</p>
-          <p>Easily add-in a short description about your recipe! This can be of any length. Duis pharetra varius quam sit amet vulputate. Quisque
-            mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis
-            nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet
-            augue.
+          <h2 class="media-heading "><a class="recipe-title" href="/#title-url">{{reciept.title}}</a></h2>
+          <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.cookingTime}} min</p>
+          <p>{{reciept.shortDescription}}
           </p>
 
         </div>

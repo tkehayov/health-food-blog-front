@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, $injector, webDevTec, toastr) {
+  function MainController($timeout, $injector, $http, webDevTec, toastr) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -15,6 +15,7 @@
     vm.showToastr = showToastr;
 
     vm.myInterval = 3000;
+    vm.reciepts = [];
     vm.slides = [
       {
         image: 'assets/images/vegie.jpg'
@@ -23,6 +24,17 @@
         image: 'assets/images/cooking.jpg'
       }
     ];
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8080/reciepts'
+    }).then(function successCallback(reciepts) {
+      vm.reciepts = reciepts.data;
+      console.log(reciepts.data);
+    }, function errorCallback(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
 
     activate();
 
