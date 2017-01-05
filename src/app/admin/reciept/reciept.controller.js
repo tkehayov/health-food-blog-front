@@ -33,11 +33,12 @@
     };
 
     vm.uploader.onCompleteItem = function(fileItem, image, status) {
-      vm.log.info(status);
+      // vm.log.info(status);
       vm.reciept.frontImage = image;
     };
 
     vm.add = function() {
+      console.log(vm.reciept);
       vm.reciept.ingredients = vm.ingredients;
       vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
       $http.post('http://localhost:8080/reciepts', vm.reciept).then(function() {

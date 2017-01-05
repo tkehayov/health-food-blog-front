@@ -16,11 +16,18 @@
       });
 
     $stateProvider
-      .state('reciept', {
+      .state('adminreciept', {
         url: '/admin/reciept',
         templateUrl: 'app/admin/reciept/reciept.html',
         controller: 'AdminRecieptController',
         controllerAs: 'adminReciept'
+      });
+    $stateProvider
+      .state('reciept', {
+        url: '/reciept/:id',
+        templateUrl: 'app/reciept/reciept.html',
+        controller: 'RecieptController',
+        controllerAs: 'reciept'
       });
     $urlRouterProvider.otherwise('/');
   }
