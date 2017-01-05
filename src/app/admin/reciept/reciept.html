@@ -18,8 +18,14 @@
 	</div>
 
 	<div class="form-group">
-		<label for="description"> описание</label>
+		<label for="description">Описание</label>
 		<input ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание">
+	</div>
+
+	<div class="form-group">
+		<label>Начална снимка</label>
+		<input type="file" nv-file-select="" uploader="adminReciept.uploader" />
+		<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload">	</span>Добави</button>
 	</div>
 
 	<div class="form-group">
