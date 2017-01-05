@@ -6,7 +6,7 @@
     .controller('RecieptController', RecieptController);
 
   /** @ngInject */
-  function RecieptController($http, moment, FileUploader) {
+  function RecieptController($http) {
     var vm = this;
 
 
