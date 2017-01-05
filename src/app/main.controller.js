@@ -11,8 +11,6 @@
 
     vm.awesomeThings = [];
     vm.classAnimation = '';
-    vm.creationDate = 1482957772914;
-
     vm.myInterval = 3000;
     vm.reciepts = [];
     vm.slides = [

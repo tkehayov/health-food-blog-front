@@ -7,11 +7,28 @@
 		<label for="time">Време за приготвяне</label>
 		<input ng-model="adminReciept.reciept.cookingTime" type="text" class="form-control" id="time" placeholder="време за приготвяне">
 	</div>
-	<div class="form-group">
+	<div class="form-inline">
+		<!--ingredients-->
 		<label for="ingredients">Продукти</label>
-		<input type="text" class="form-control" id="ingredients" placeholder="продукти">
-	</div>
+		<div ng-repeat="ingredient in adminReciept.ingredients">
+			<div class="dropdown">
+				<input type="text" class="form-control" ng-model="ingredient.amount" placeholder="количество">
 
+				<label for="type">тип</label>
+				<select class="form-control" id="type" ng-model="ingredient.type">
+        <option>гр</option>
+        <option>мл</option>
+        <option>ч.л</option>
+        <option>щипка</option>
+      </select>
+
+				<input type="text" class="form-control" ng-model="ingredient.content" id="ingredient" placeholder="продукт">
+			</div>
+		</div>
+		<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.addIngredient()"><i class="glyphicon glyphicon-plus"></i>Добави</button>
+		<button type="submit" class="btn btn-danger btn-xs" ng-click="adminReciept.removeIngredient()"><i class="glyphicon glyphicon-minus"></i>Премахни</button>
+	</div>
+{{adminReciept.ingredients}}
 	<div class="form-group">
 		<label for="short-description">Кратко описание</label>
 		<input ng-model="adminReciept.reciept.shortDescription" type="textarea" class="form-control" id="short-description" placeholder="кратко описание">
@@ -25,12 +42,7 @@
 	<div class="form-group">
 		<label>Начална снимка</label>
 		<input type="file" nv-file-select="" uploader="adminReciept.uploader" />
-		<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload">	</span>Добави</button>
-	</div>
-
-	<div class="form-group">
-		<label for="steps">Начин на приготвяне</label>
-		<input type="textarea" class="form-control" id="steps" placeholder="начин на приготвяне">
+		<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
 	</div>
 
 	<button type="submit" ng-click="adminReciept.add()" class="btn btn-success">Добави</button>
