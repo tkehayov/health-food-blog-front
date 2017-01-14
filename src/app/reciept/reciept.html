@@ -1,17 +1,21 @@
 <div class="container-fluid">
 
 	<div class="row">
-		<div>
+		<div class="col-md-13">
 			<img src="assets/images/header.jpg" alt="alt">
 		</div>
+	</div>
+	<div class="row">
 		<acme-navbar></acme-navbar>
 	</div>
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<h2> {{reciept.reciept.title}}</h2>
 				<p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.reciept.cookingTime}} min</p>
-				<img src="http://localhost:8080/images/{{reciept.reciept.frontImage}}" alt="">
+				<img class="img-responsive" src="http://localhost:8080/images/{{reciept.reciept.frontImage}}" alt="">
 				<h3>Продукти</h3>
 				<ul class="list-group">
 					<li ng-repeat="ingredient in reciept.reciept.ingredients" class="list-group-item grey"><strong>{{ingredient.amount}} {{ingredient.type}}</strong> {{ingredient.content}} </li>

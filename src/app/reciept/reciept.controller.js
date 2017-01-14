@@ -15,7 +15,6 @@
       method: 'GET',
       url: 'http://localhost:8080/' + recieptId + '/reciepts'
     }).then(function successCallback(reciept) {
-      console.log(reciept.data);
       vm.reciept = reciept.data;
     }, function errorCallback() {
       // called asynchronously if an error occurs
