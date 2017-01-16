@@ -6,7 +6,7 @@
     .controller('AdminRecieptController', AdminRecieptController);
 
   /** @ngInject */
-  function AdminRecieptController($scope, $http, moment) {
+  function AdminRecieptController($scope, $http, BACKEND_URL, moment) {
     var vm = this;
 
     vm.reciept = {};
@@ -56,7 +56,7 @@
       var croppedImage = dataURItoBlob(vm.myCroppedImage);
 
       formData.set("file", croppedImage, fileName);
-      $http.post("http://localhost:8080/reciepts/image", formData, {
+      $http.post(BACKEND_URL + "/reciepts/image", formData, {
         transformRequest: angular.identity,
         headers: {
           'Content-Type': undefined
@@ -73,7 +73,7 @@
       vm.reciept.directions = vm.directions;
       vm.reciept.ingredients = vm.ingredients;
       vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
-      $http.post('http://localhost:8080/reciepts', vm.reciept).then(function() {
+      $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
       }, function() {
       });
     }

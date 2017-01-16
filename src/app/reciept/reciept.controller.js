@@ -6,14 +6,14 @@
     .controller('RecieptController', RecieptController);
 
   /** @ngInject */
-  function RecieptController($http, $stateParams) {
+  function RecieptController($http, $stateParams, BACKEND_URL) {
     var vm = this;
     var recieptId = $stateParams.id;
     vm.reciept = {};
-
+    vm.imageUrl = BACKEND_URL + "/images";
     $http({
       method: 'GET',
-      url: 'http://localhost:8080/' + recieptId + '/reciepts'
+      url: BACKEND_URL + '/' + recieptId + '/reciepts'
     }).then(function successCallback(reciept) {
       vm.reciept = reciept.data;
     }, function errorCallback() {

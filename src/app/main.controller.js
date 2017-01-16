@@ -3,16 +3,18 @@
 
   angular
     .module('cakeryFront')
-    .controller('MainController', MainController);
+    .controller('MainController', MainController)
+    .constant('BACKEND_URL', '/back');
 
   /** @ngInject */
-  function MainController( $injector, $http) {
+  function MainController($injector, $http, BACKEND_URL) {
     var vm = this;
 
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.myInterval = 3000;
     vm.reciepts = [];
+    vm.imageUrl = BACKEND_URL + "/images";
     vm.slides = [
       {
         image: 'assets/images/vegie.jpg'
@@ -24,7 +26,7 @@
 
     $http({
       method: 'GET',
-      url: 'http://localhost:8080/reciepts'
+      url: BACKEND_URL + '/reciepts'
     }).then(function successCallback(reciepts) {
       vm.reciepts = reciepts.data;
     }, function errorCallback() {

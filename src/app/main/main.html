@@ -23,7 +23,7 @@
       <div class="well" ng-repeat="reciept in main.reciepts">
         <div class="media">
           <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#">
-            <img class="media-object img-rounded" src="http://localhost:8080/images/{{reciept.frontImage}}" alt="...">
+            <img class="media-object img-rounded" src="{{main.imageUrl}}/{{reciept.frontImage}}" alt="...">
           </a>
           <div class="media-body">
             <h2 class="media-heading "><a class="recipe-title" href="/#reciept/{{reciept.id}}"> {{reciept.title}}</a></h2>
