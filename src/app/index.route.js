@@ -9,7 +9,7 @@
   function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
-        url: '/',
+        url: '/app',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
@@ -22,7 +22,7 @@
         controller: 'RecieptController',
         controllerAs: 'reciept'
       });
-    $urlRouterProvider.otherwise('/');
+    // $urlRouterProvider.otherwise('/');
   }
 
 angular
@@ -30,10 +30,10 @@ angular
     .config(routerConfig2);
 
     /** @ngInject */
-  function routerConfig2($stateProvider, $urlRouterProvider, $locationProvider) {
+  function routerConfig2($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('adminreciept', {
-        url: '/admin/reciept',
+        url: '/admin',
         templateUrl: 'app/admin/reciept/reciept.html',
         controller: 'AdminRecieptController',
         controllerAs: 'adminReciept'
