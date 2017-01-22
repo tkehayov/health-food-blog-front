@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-    .module('cakeryFront')
-    .controller('MainController', MainController)
+    .module('cakeryAdmin')
+    .controller('AdminController', AdminController)
     .constant('BACKEND_URL', '');
 
   /** @ngInject */
-  function MainController($injector, $http, BACKEND_URL) {
+  function AdminController($injector, $http, BACKEND_URL) {
     var vm = this;
 
     vm.awesomeThings = [];

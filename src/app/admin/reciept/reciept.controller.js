@@ -2,13 +2,13 @@
   'use strict';
 
   angular
-    .module('cakeryFront')
+    .module('cakeryAdmin')
     .controller('AdminRecieptController', AdminRecieptController);
 
   /** @ngInject */
-  function AdminRecieptController($scope, $http, BACKEND_URL, moment, toastr) {
+  function AdminRecieptController($scope, $http, BACKEND_URL, toastr) {
     var vm = this;
-
+console.log("asdf");
     vm.reciept = {};
     vm.ingredients = [{}];
     vm.directions = [""];
