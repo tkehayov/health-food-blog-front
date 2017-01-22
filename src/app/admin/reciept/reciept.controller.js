@@ -6,7 +6,7 @@
     .controller('AdminRecieptController', AdminRecieptController);
 
   /** @ngInject */
-  function AdminRecieptController($scope, $http, BACKEND_URL, moment) {
+  function AdminRecieptController($scope, $http, BACKEND_URL, moment, toastr) {
     var vm = this;
 
     vm.reciept = {};
@@ -64,8 +64,10 @@
       })
         .success(function(image) {
           vm.reciept.frontImage = image;
+          toastr.success("Success");
         })
-        .error(function() {
+        .error(function(error) {
+          toastr.success(error.data);
         });
     }
 
@@ -74,7 +76,9 @@
       vm.reciept.ingredients = vm.ingredients;
       vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
       $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
+        toastr.success("Success");
       }, function() {
+        toastr.error(error.data);
       });
     }
 

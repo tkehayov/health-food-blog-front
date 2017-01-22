@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -30,6 +30,8 @@
         controllerAs: 'reciept'
       });
     $urlRouterProvider.otherwise('/');
+
+    $locationProvider.html5Mode(true);
   }
 
 })();
