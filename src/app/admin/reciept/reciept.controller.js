@@ -8,7 +8,7 @@
   /** @ngInject */
   function AdminRecieptController($scope, $http, BACKEND_URL, toastr) {
     var vm = this;
-console.log("asdf");
+    console.log("asdf");
     vm.reciept = {};
     vm.ingredients = [{}];
     vm.directions = [""];
@@ -35,8 +35,8 @@ console.log("asdf");
       }
     }
     // uploading file
-    vm.myImage = '';
-    vm.myCroppedImage = '';
+    vm.frontImage = '';
+    vm.croppedFrontImage = '';
 
     var handleFileSelect = function(evt) {
       var file = evt.currentTarget.files[0];
@@ -44,17 +44,36 @@ console.log("asdf");
       var reader = new FileReader();
       reader.onload = function(evt) {
         $scope.$apply(function() {
-          vm.myImage = evt.target.result;
+          vm.frontImage = evt.target.result;
         });
       };
       reader.readAsDataURL(file);
     };
     angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
-    vm.uploadImage = function() {
-      var formData = new FormData();
-      var croppedImage = dataURItoBlob(vm.myCroppedImage);
+    // second image
+    vm.frontImageGallery = '';
+    vm.croppedFrontImageGallery = '';
 
+    var handleFileSelect2 = function(evt) {
+      var file = evt.currentTarget.files[0];
+      fileName = file.name;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        $scope.$apply(function() {
+          vm.frontImageGallery = evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#fileInput2')).on('change', handleFileSelect2);
+
+    vm.uploadImage = function(imageType) {
+      var formData = new FormData();
+      var croppedImage = dataURItoBlob(vm.croppedFrontImage);
+      if (imageType == "frontImageGallery") {
+        croppedImage = dataURItoBlob(vm.croppedFrontImageGallery);
+      }
       formData.set("file", croppedImage, fileName);
       $http.post(BACKEND_URL + "/reciepts/image", formData, {
         transformRequest: angular.identity,
@@ -63,7 +82,13 @@ console.log("asdf");
         }
       })
         .success(function(image) {
-          vm.reciept.frontImage = image;
+          if (imageType == "frontImage") {
+            vm.reciept.frontImage = image;
+          }
+
+          if (imageType == "frontImageGallery") {
+            vm.reciept.frontImageGallery = image;
+          }
           toastr.success("Success");
         })
         .error(function(error) {
