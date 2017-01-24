@@ -1,4 +1,18 @@
 <div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div>Начална снимка<input type="file" id="fileInput" /></div>
+			<div class="cropArea">
+				<img-crop result-image-size="350" image="adminReciept.myImage" area-type="square" result-image="adminReciept.myCroppedImage"></img-crop>
+			</div>
+			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
+			
+		</div>
+		<div class="col-md-6">
+			<div>Изрязана снимка</div>
+			<div><img ng-src="{{adminReciept.myCroppedImage}}" alt=""></div>
+		</div>
+	</div>
 	<form>
 		<div class="form-group">
 			<label for="title">Заглавие</label>
@@ -51,16 +65,6 @@
 			<label for="description">Описание</label>
 			<input ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание">
 		</div>
-
-		<div>Select an image file: <input type="file" id="fileInput" /></div>
-		<div class="cropArea">
-			<img-crop result-image-size="350" image="adminReciept.myImage" area-type="square" result-image="adminReciept.myCroppedImage"></img-crop>
-		</div>
-
-		<div>Cropped Image:</div>
-		<div><img ng-src="{{adminReciept.myCroppedImage}}" alt=""></div>
-		<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
-
 		<button type="submit" ng-click="adminReciept.add()" class="btn btn-success">Добави</button>
 	</form>
 

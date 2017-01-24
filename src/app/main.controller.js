@@ -4,7 +4,7 @@
   angular
     .module('cakeryFront')
     .controller('MainController', MainController)
-    .constant('BACKEND_URL', '');
+    .constant('BACKEND_URL', '/back');
 
   /** @ngInject */
   function MainController($injector, $http, BACKEND_URL) {

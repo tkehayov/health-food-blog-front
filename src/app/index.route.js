@@ -9,7 +9,7 @@
   function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
-        url: '/app',
+        url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
@@ -27,10 +27,10 @@
 
 angular
     .module('cakeryAdmin')
-    .config(routerConfig2);
+    .config(cakeryAdmin);
 
     /** @ngInject */
-  function routerConfig2($stateProvider, $urlRouterProvider) {
+  function cakeryAdmin($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('adminreciept', {
         url: '/admin',
