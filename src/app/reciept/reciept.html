@@ -15,7 +15,8 @@
 			<div class="col-md-8 col-md-offset-1">
 				<h2> {{reciept.reciept.title}}</h2>
 				<p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.reciept.cookingTime}} min</p>
-				<img class="media-object img-rounded" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
+				<img class="img-rounded" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
+				<button class="col-md-offset-1 share-button"  ng-click="reciept.print()"><i class="glyphicon glyphicon-share"></i> Принтирай</button>
 				<h3>Продукти</h3>
 				<ul class="list-group">
 					<li ng-repeat="ingredient in reciept.reciept.ingredients" class="list-group-item grey"><strong>{{ingredient.amount}} {{ingredient.type}}</strong> {{ingredient.content}} </li>
