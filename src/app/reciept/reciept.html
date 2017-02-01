@@ -2,7 +2,7 @@
 
 	<div class="row">
 		<div class="col-md-13">
-			<img src="assets/images/header.jpg" alt="alt">
+			<img class="media-object img-rounded" src="assets/images/header.jpg" alt="alt">
 		</div>
 	</div>
 	<div class="row">
@@ -12,14 +12,19 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8 col-md-offset-1">
 				<h2> {{reciept.reciept.title}}</h2>
 				<p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.reciept.cookingTime}} min</p>
-				<img class="img-responsive" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
+				<img class="media-object img-rounded" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
 				<h3>Продукти</h3>
 				<ul class="list-group">
 					<li ng-repeat="ingredient in reciept.reciept.ingredients" class="list-group-item grey"><strong>{{ingredient.amount}} {{ingredient.type}}</strong> {{ingredient.content}} </li>
 				</ul>
+
+				<p>
+					<h3>Описание</h3>
+					{{reciept.reciept.content}}
+				</p>
 				<h3>Начин на приготвяне</h3>
 				<div ng-repeat="direction in reciept.reciept.directions">
 					<p>

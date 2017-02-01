@@ -3,7 +3,7 @@
 		<div class="col-md-5">
 			<div>Начална снимка<input type="file" id="fileInput" /></div>
 			<div class="cropArea">
-				<img-crop result-image-size="300" image="adminReciept.frontImage" area-type="square" result-image="adminReciept.croppedFrontImage"></img-crop>
+				<img-crop result-image-size="350" image="adminReciept.frontImage" area-type="square" result-image="adminReciept.croppedFrontImage"></img-crop>
 			</div>
 
 			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImage')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
@@ -17,9 +17,9 @@
 	<!--second image-->
 	<div class="row">
 		<div class="col-md-5">
-			<div>Начална снимка галерия<input type="file" id="fileInput2" /></div>
+			<div>Снимка за рецептата<input type="file" id="fileInput2" /></div>
 			<div class="cropArea">
-				<img-crop result-image-size="400" image="adminReciept.frontImageGallery" area-type="square" result-image="adminReciept.croppedFrontImageGallery"></img-crop>
+				<img-crop result-image-size="350" image="adminReciept.frontImageGallery" area-type="square" result-image="adminReciept.croppedFrontImageGallery"></img-crop>
 			</div>
 
 			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImageGallery')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
@@ -30,7 +30,6 @@
 			<div><img ng-src="{{adminReciept.croppedFrontImageGallery}}" alt=""></div>
 		</div>
 	</div>
-
 	<form>
 		<div class="form-group">
 			<label for="title">Заглавие</label>

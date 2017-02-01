@@ -50,7 +50,7 @@
       reader.readAsDataURL(file);
     };
     angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
-
+    vm.numberImages = new Array(6);
     // second image
     vm.frontImageGallery = '';
     vm.croppedFrontImageGallery = '';
@@ -83,6 +83,7 @@
       })
         .success(function(image) {
           if (imageType == "frontImage") {
+            console.log("kj");
             vm.reciept.frontImage = image;
           }
 

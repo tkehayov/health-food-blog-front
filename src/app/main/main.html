@@ -20,19 +20,20 @@
 
   <div class="container">
     <div class="row">
-      <div class="well" ng-repeat="reciept in main.reciepts">
-        <div class="media">
-          <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#">
-            <img class="media-object img-rounded" src="{{main.imageUrl}}/{{reciept.frontImage}}" alt="...">
-          </a>
-          <div class="media-body">
-            <h2 class="media-heading "><a class="recipe-title" href="/#reciept/{{reciept.id}}"> {{reciept.title}}</a></h2>
-            <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.cookingTime}} min</p>
-            <p>{{reciept.shortDescription}}
-            </p>
-            <p><a class="read-more" href="/#">прочети повече</a></p>
+      <div class="col-md-10 col-md-offset-1">
+        <div class="well" ng-repeat="reciept in main.reciepts">
+          <div class="media">
+            <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#">
+              <img class="media-object img-rounded" src="{{main.imageUrl}}/{{reciept.frontImage}}" alt="...">
+            </a>
+            <div class="media-body">
+              <h2 class="media-heading "><a class="recipe-title" href="/#reciept/{{reciept.id}}"> {{reciept.title}}</a></h2>
+              <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.cookingTime}} min</p>
+              <p>{{reciept.shortDescription}}
+              </p>
+              <p><a class="read-more" href="/#">прочети повече</a></p>
 
-
+            </div>
           </div>
         </div>
       </div>
