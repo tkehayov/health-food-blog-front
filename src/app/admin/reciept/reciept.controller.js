@@ -12,6 +12,8 @@
     vm.reciept = {};
     vm.ingredients = [{}];
     vm.directions = [""];
+    vm.reciept.cookingPreperationTime = parseInt(0);
+    vm.reciept.cookingTime = parseInt(0);
     var fileName = "";
     vm.addIngredient = function() {
       vm.ingredients.push({});
@@ -83,7 +85,6 @@
       })
         .success(function(image) {
           if (imageType == "frontImage") {
-            console.log("kj");
             vm.reciept.frontImage = image;
           }
 
@@ -101,6 +102,8 @@
       vm.reciept.directions = vm.directions;
       vm.reciept.ingredients = vm.ingredients;
       vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
+      vm.reciept.cookingTimeAll = parseInt(vm.reciept.cookingPreperationTime) + parseInt(vm.reciept.cookingTime);
+      
       $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
         toastr.success("Success");
       }, function() {
