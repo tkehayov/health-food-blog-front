@@ -23,15 +23,15 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="well" ng-repeat="reciept in main.reciepts">
           <div class="media">
-            <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#">
+            <a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#/reciept/{{reciept.id}}">
               <img class="media-object img-rounded" src="{{main.imageUrl}}/{{reciept.frontImage}}" alt="...">
             </a>
             <div class="media-body">
-              <h2 class="media-heading "><a class="recipe-title" href="/#reciept/{{reciept.id}}"> {{reciept.title}}</a></h2>
+              <h2 class="media-heading "><a class="recipe-title" href="#/reciept/{{reciept.id}}"> {{reciept.title}}</a></h2>
               <p class="text-left time-menu"><i class="glyphicon glyphicon-time"></i> {{reciept.cookingTime}} min</p>
               <p>{{reciept.shortDescription}}
               </p>
-              <p><a class="read-more" href="/#">прочети повече</a></p>
+              <p><a class="read-more" href="#/reciept/{{reciept.id}}">прочети повече</a></p>
 
             </div>
           </div>
