@@ -107,7 +107,7 @@
       $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
         
         Notification.success('Success');
-      }, function() {
+      }, function(error) {
         Notification.error(error.data);
       });
     }
