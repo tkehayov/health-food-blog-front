@@ -6,7 +6,7 @@
     .controller('AdminRecieptController', AdminRecieptController);
 
   /** @ngInject */
-  function AdminRecieptController($scope, $http, BACKEND_URL, toastr) {
+  function AdminRecieptController($scope, $http, BACKEND_URL,  Notification) {
     var vm = this;
     console.log("asdf");
     vm.reciept = {};
@@ -91,10 +91,10 @@
           if (imageType == "frontImageGallery") {
             vm.reciept.frontImageGallery = image;
           }
-          toastr.success("Success");
+          Notification.success('Success');
         })
         .error(function(error) {
-          toastr.success(error.data);
+          Notification.error(error.data);
         });
     }
 
@@ -105,9 +105,10 @@
       vm.reciept.cookingTimeAll = parseInt(vm.reciept.cookingPreperationTime) + parseInt(vm.reciept.cookingTime);
       
       $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
-        toastr.success("Success");
+        
+        Notification.success('Success');
       }, function() {
-        toastr.error(error.data);
+        Notification.error(error.data);
       });
     }
 
