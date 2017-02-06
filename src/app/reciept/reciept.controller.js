@@ -20,7 +20,10 @@
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
-    
+
+    vm.getUrl = function(){
+      return window.location.href;
+    };
     vm.print = function() {
       window.print();
     }
