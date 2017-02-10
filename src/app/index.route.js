@@ -33,10 +33,20 @@ angular
   function cakeryAdmin($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('adminreciept', {
-        url: '/admin',
+        url: '/admin/reciept',
         templateUrl: 'app/admin/reciept/reciept.html',
         controller: 'AdminRecieptController',
         controllerAs: 'adminReciept'
+      });
+  }
+
+  function cakeryAdmin($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('adminreciept', {
+        url: '/admin/recieptList',
+        templateUrl: 'app/admin/recieptList/reciepts.html',
+        controller: 'AdminRecieptListController',
+        controllerAs: 'adminRecieptList'
       });
   }
 })();
