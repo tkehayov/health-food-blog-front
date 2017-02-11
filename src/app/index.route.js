@@ -14,7 +14,7 @@
         controller: 'MainController',
         controllerAs: 'main'
       });
-      
+
     $stateProvider
       .state('reciept', {
         url: '/reciept/:id',
@@ -38,15 +38,12 @@ angular
         controller: 'AdminRecieptController',
         controllerAs: 'adminReciept'
       });
-  }
 
-  function cakeryAdmin($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('adminreciept', {
-        url: '/admin/recieptList',
-        templateUrl: 'app/admin/recieptList/reciepts.html',
-        controller: 'AdminRecieptListController',
-        controllerAs: 'adminRecieptList'
-      });
+      $stateProvider.state('adminListreciept', {
+              url: '/admin/recieptList',
+              templateUrl: 'app/admin/recieptList/reciepts.html',
+              controller: 'AdminRecieptListController',
+              controllerAs: 'adminRecieptList'
+            });
   }
 })();

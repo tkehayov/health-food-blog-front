@@ -3,11 +3,12 @@
 
   angular
     .module('cakeryAdmin')
-    .controller('AdminRecieptController', AdminRecieptController);
+    .controller('AdminRecieptListController', AdminRecieptListController);
 
   /** @ngInject */
-  function AdminRecieptController($scope, $http, BACKEND_URL,  Notification) {
+  function AdminRecieptListController($scope, $http, BACKEND_URL,  Notification) {
     var vm = this;
+    console.log("asdf");
     vm.reciept = {};
     vm.ingredients = [{}];
     vm.directions = [""];
