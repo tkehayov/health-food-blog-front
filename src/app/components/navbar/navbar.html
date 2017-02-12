@@ -4,21 +4,30 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
           aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
       </div>
 
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a ng-href="#/">Начало</a></li>
-          <li><a ng-href="#/">Рецепти</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Рецепти<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+
+              <li ng-repeat="category in categories">
+                <a href="#">{{category}}</a>
+              </li>
+            </ul>
+          </li>
           <li><a ng-href="#/">Категории</a></li>
           <li><a ng-href="#/">За мен</a></li>
           <li><a ng-href="#/">Контакти</a></li>
+
         </ul>
       </div>
     </div>
