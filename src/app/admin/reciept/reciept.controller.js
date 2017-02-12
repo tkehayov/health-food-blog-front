@@ -5,9 +5,10 @@
         .controller('AdminRecieptController', AdminRecieptController);
 
     /** @ngInject */
-    function AdminRecieptController($scope, $http, $modal, $timeout, BACKEND_URL, Notification) {
+    function AdminRecieptController($scope, $http, $modal, $timeout, BACKEND_URL, CATEGORIES, Notification) {
         var vm = this;
         vm.reciept = {};
+        vm.categories = CATEGORIES;
         vm.ingredients = [{}];
         vm.directions = [""];
         vm.reciept.cookingPreperationTime = parseInt(0);

@@ -4,6 +4,7 @@
   angular
     .module('cakeryFront')
     .controller('MainController', MainController)
+    .constant('CATEGORIES', ['категория1', 'категория2', 'категория3', 'категория4', 'категория5'])
     .constant('BACKEND_URL', '/back');
 
   /** @ngInject */

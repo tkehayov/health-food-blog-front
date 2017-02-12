@@ -40,11 +40,7 @@
         <div class="form-group">
             <label for="title">Категория</label>
             <select class="form-control" id="type" ng-model="adminReciept.reciept.category">
-                <option value="категория1">категория1</option>
-                <option value="категория2">категория2</option>
-                <option value="категория3">категория3</option>
-                <option value="категория4">категория4</option>
-                <option value="категория5">категория5</option>
+                <option ng-repeat="option in adminReciept.categories" value="{{option}}">{{option}}</option>
             </select>
         </div>
         <!--prep time-->
@@ -97,11 +93,11 @@
         </div>
         <div class="form-group">
             <label for="short-description">Кратко описание</label>
-            <input ng-model="adminReciept.reciept.shortDescription" type="textarea" class="form-control" id="direction" placeholder="кратко описание">
+            <textarea ng-model="adminReciept.reciept.shortDescription" type="textarea" class="form-control" id="direction" placeholder="кратко описание"></textarea>
         </div>
         <div class="form-group">
             <label for="description">Описание</label>
-            <input ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание">
+            <textarea ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание"></textarea>
         </div>
         <button type="submit" ng-click="adminReciept.add()" class="btn btn-success">Добави</button>
     </form>
