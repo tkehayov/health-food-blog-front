@@ -30,12 +30,22 @@
             <div>Изрязана снимка</div>
             <div><img ng-src="{{adminReciept.croppedFrontImageGallery}}" alt=""></div>
         </div>
-        <button type="button" class="btn btn-default" ng-click="adminReciept.addImageGallery()">Open me!</button>
     </div>
+    <button type="button" class="btn btn-info" ng-click="adminReciept.addImageGallery()">галерия</button>
     <form>
         <div class="form-group">
             <label for="title">Заглавие</label>
             <input ng-model="adminReciept.reciept.title" type="text" class="form-control" id="title" placeholder="заглавие">
+        </div>
+        <div class="form-group">
+            <label for="title">Категория</label>
+            <select class="form-control" id="type" ng-model="adminReciept.reciept.category">
+                <option value="категория1">категория1</option>
+                <option value="категория2">категория2</option>
+                <option value="категория3">категория3</option>
+                <option value="категория4">категория4</option>
+                <option value="категория5">категория5</option>
+            </select>
         </div>
         <!--prep time-->
         <div class="form-group input-group input-group-sm">
@@ -61,6 +71,7 @@
                     <label for="type">тип</label>
                     <select class="form-control" id="type" ng-model="ingredient.type">
                         <option>гр</option>
+                        <option>бр.</option>
                         <option>мл</option>
                         <option>ч.л</option>
                         <option>щипка</option>
