@@ -1,18 +1,5 @@
 <div class="container">
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h2 class="modal-title" id="modal-title">Избор на снимка</h2>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <ul>
-            </ul>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-        </div>
-    </script>
-
+    <div ng-include="'app/admin/reciept/gallerytemplate.html'"></div>
     <div class="row">
         <div class="col-md-5">
             <div>Начална снимка
@@ -43,9 +30,7 @@
             <div>Изрязана снимка</div>
             <div><img ng-src="{{adminReciept.croppedFrontImageGallery}}" alt=""></div>
         </div>
-
         <button type="button" class="btn btn-default" ng-click="adminReciept.addImageGallery()">Open me!</button>
-
     </div>
     <form>
         <div class="form-group">

@@ -27,22 +27,22 @@
             url: 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793_960_720.jpg',
             extUrl: 'http://mywebsitecpm/photo/1453793'
         },
-         {
+        {
             url: 'https://pixabay.com/static/uploads/photo/2016/06/10/22/25/ortler-1449018_960_720.jpg'
         }, {
             thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
             url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701_960_720.jpg'
         },
-         {
+        {
             thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
             url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg'
-        },{
+        }, {
             thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
             url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg'
         }];
 
-        vm.openImage = function(){
-          console.log("Asdf");
+        vm.openImage = function() {
+            console.log("Asdf");
         };
 
         $http({
@@ -50,6 +50,10 @@
             url: BACKEND_URL + '/' + recieptId + '/reciepts'
         }).then(function successCallback(reciept) {
             vm.reciept = reciept.data;
+
+            angular.forEach(vm.reciept.images, function(image, key) {
+                vm.reciept.images[key] = { "thumbUrl": vm.imageUrl +"/"+ image.source, "url": vm.imageUrl+"/"+image.source };
+            });
         }, function errorCallback() {
             // called asynchronously if an error occurs
             // or server returns response with an error status.

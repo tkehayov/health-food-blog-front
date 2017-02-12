@@ -1,18 +1,18 @@
 (function() {
     'use strict';
-
     angular
         .module('cakeryAdmin')
         .controller('AdminRecieptController', AdminRecieptController);
 
     /** @ngInject */
-    function AdminRecieptController($scope, $http, $modal, BACKEND_URL, Notification) {
+    function AdminRecieptController($scope, $http, $modal, $timeout, BACKEND_URL, Notification) {
         var vm = this;
         vm.reciept = {};
         vm.ingredients = [{}];
         vm.directions = [""];
         vm.reciept.cookingPreperationTime = parseInt(0);
         vm.reciept.cookingTime = parseInt(0);
+        vm.reciept.images = [];
         var fileName = "";
         vm.addIngredient = function() {
             vm.ingredients.push({});
@@ -30,12 +30,12 @@
         }
 
         vm.removeDirection = function() {
-                if (vm.directions.length > 1) {
-                    var lastDirection = vm.directions.length - 1;
-                    vm.directions.splice(lastDirection);
-                }
+            if (vm.directions.length > 1) {
+                var lastDirection = vm.directions.length - 1;
+                vm.directions.splice(lastDirection);
             }
-            // uploading file
+        }
+        // uploading file
         vm.frontImage = '';
         vm.croppedFrontImage = '';
 
@@ -69,19 +69,23 @@
         };
         angular.element(document.querySelector('#fileInput2')).on('change', handleFileSelect2);
 
-        vm.uploadImage = function(imageType) {
+        vm.uploadImage = function(imageType, croppedImagetoSend) {
             var formData = new FormData();
             var croppedImage = dataURItoBlob(vm.croppedFrontImage);
             if (imageType == "frontImageGallery") {
                 croppedImage = dataURItoBlob(vm.croppedFrontImageGallery);
             }
+            if (imageType == "imageGallery") {
+                croppedImage = dataURItoBlob(croppedImagetoSend);
+                //    vm.reciept.images.push(image);
+            }
             formData.set("file", croppedImage, fileName);
             $http.post(BACKEND_URL + "/reciepts/image", formData, {
-                    transformRequest: angular.identity,
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                })
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            })
                 .success(function(image) {
                     if (imageType == "frontImage") {
                         vm.reciept.frontImage = image;
@@ -89,6 +93,9 @@
 
                     if (imageType == "frontImageGallery") {
                         vm.reciept.frontImageGallery = image;
+                    }
+                    if (imageType == "imageGallery") {
+                        vm.reciept.images.push(image);
                     }
                     Notification.success('Success');
                 })
@@ -112,7 +119,6 @@
         }
 
         vm.addImageGallery = function() {
-          console.log("Asdf");
             $modal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title-top',
@@ -120,6 +126,35 @@
                 templateUrl: 'myModalContent.html',
                 size: 'sm',
                 controller: function($scope) {
+                    // second image
+                    $scope.init = function() {
+                        $scope.imageGallery = '';
+                        $scope.croppedImageGallery = '';
+
+                        var handleFileSelect3 = function(evt) {
+                            
+
+                            var file = evt.currentTarget.files[0];
+                            fileName = file.name;
+                            var reader = new FileReader();
+                            reader.onload = function(evt) {
+                                $scope.$apply(function() {
+                                    $scope.imageGallery = evt.target.result;
+                                });
+                            };
+                            reader.readAsDataURL(file);
+                        };
+
+                        angular.element(document.querySelector('#fileInput3')).on('change', handleFileSelect3);
+                    };
+
+                    $scope.cancelImageGallery = function() {
+                        $scope.$close();
+                    }
+                    $scope.addImageGallery = function() {
+                        // console.log($scope.croppedImageGallery);
+                        vm.uploadImage('imageGallery', $scope.imageGallery);
+                    }
                     $scope.name = 'top';
                 }
             });
