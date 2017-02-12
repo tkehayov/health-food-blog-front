@@ -19,12 +19,31 @@
             thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793__340.jpg',
             url: 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793_960_720.jpg',
             extUrl: 'http://mywebsitecpm/photo/1453793'
-        }, {
+        },
+        {
+            title: 'This is amazing photo of nature',
+            alt: 'amazing nature photo',
+            thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793__340.jpg',
+            url: 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793_960_720.jpg',
+            extUrl: 'http://mywebsitecpm/photo/1453793'
+        },
+         {
             url: 'https://pixabay.com/static/uploads/photo/2016/06/10/22/25/ortler-1449018_960_720.jpg'
         }, {
             thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
             url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701_960_720.jpg'
+        },
+         {
+            thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
+            url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg'
+        },{
+            thumbUrl: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
+            url: 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg'
         }];
+
+        vm.openImage = function(){
+          console.log("Asdf");
+        };
 
         $http({
             method: 'GET',

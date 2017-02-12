@@ -13,14 +13,10 @@
                 <h2> {{reciept.reciept.title}}</h2>
                 <div class="row">
                     <div class="col-md-7 col-sm-7">
-                        <img class="img-rounded" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
+                        <div>
+                            <img class="img-rounded" src="{{reciept.imageUrl}}/{{reciept.reciept.frontImageGallery}}" alt="">
+                        </div>
                     </div>
-
-                    <ng-image-gallery images="reciept.imagess" methods="reciept.methods" thumbnails="true" inline="false" img-bubbles="true" bg-close="false" bubbles="true" img-anim="fadeup" conf="conf">
-                    	
-                    </ng-image-gallery>
-
-
                     <div class="col-md-5 col-sm-5">
                         <p>
                             <i class="glyphicon glyphicon-time text-green-light"></i> <span class="time-text">подготовка: </span> <span class="time-menu">{{reciept.reciept.cookingPreperationTime}} min</span>
@@ -49,6 +45,10 @@
                         <div class="fb-share-button" data-href="reciept.getUrl()" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Споделяне</a>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <ng-image-gallery images="reciept.imagess" methods="reciept.methods" thumbnails="true" inline="false" img-bubbles="true" bg-close="false" bubbles="true" img-anim="fadeup" conf="conf">
+                    </ng-image-gallery>
                 </div>
                 <h3>Продукти</h3>
                 <ul class="list-group">

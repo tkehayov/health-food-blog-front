@@ -1,99 +1,112 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-5">
-			<div>Начална снимка<input type="file" id="fileInput" /></div>
-			<div class="cropArea">
-				<img-crop result-image-size="350" image="adminReciept.frontImage" area-type="square" result-image="adminReciept.croppedFrontImage"></img-crop>
-			</div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">Избор на снимка</h2>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <ul>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
 
-			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImage')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
+    <div class="row">
+        <div class="col-md-5">
+            <div>Начална снимка
+                <input type="file" id="fileInput" />
+            </div>
+            <div class="cropArea">
+                <img-crop result-image-size="350" image="adminReciept.frontImage" area-type="square" result-image="adminReciept.croppedFrontImage"></img-crop>
+            </div>
+            <button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImage')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
+        </div>
+        <div class="col-md-6">
+            <div>Изрязана снимка</div>
+            <div><img ng-src="{{adminReciept.croppedFrontImage}}" alt=""></div>
+        </div>
+    </div>
+    <!--second image-->
+    <div class="row">
+        <div class="col-md-5">
+            <div>Снимка за рецептата
+                <input type="file" id="fileInput2" />
+            </div>
+            <div class="cropArea">
+                <img-crop result-image-size="350" image="adminReciept.frontImageGallery" area-type="square" result-image="adminReciept.croppedFrontImageGallery"></img-crop>
+            </div>
+            <button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImageGallery')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
+        </div>
+        <div class="col-md-6">
+            <div>Изрязана снимка</div>
+            <div><img ng-src="{{adminReciept.croppedFrontImageGallery}}" alt=""></div>
+        </div>
 
-		</div>
-		<div class="col-md-6">
-			<div>Изрязана снимка</div>
-			<div><img ng-src="{{adminReciept.croppedFrontImage}}" alt=""></div>
-		</div>
-	</div>
-	<!--second image-->
-	<div class="row">
-		<div class="col-md-5">
-			<div>Снимка за рецептата<input type="file" id="fileInput2" /></div>
-			<div class="cropArea">
-				<img-crop result-image-size="350" image="adminReciept.frontImageGallery" area-type="square" result-image="adminReciept.croppedFrontImageGallery"></img-crop>
-			</div>
+        <button type="button" class="btn btn-default" ng-click="adminReciept.addImageGallery()">Open me!</button>
 
-			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.uploadImage('frontImageGallery')" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><span class="glyphicon glyphicon-upload"></span>качи</button>
-
-		</div>
-		<div class="col-md-6">
-			<div>Изрязана снимка</div>
-			<div><img ng-src="{{adminReciept.croppedFrontImageGallery}}" alt=""></div>
-		</div>
-	</div>
-	<form>
-		<div class="form-group">
-			<label for="title">Заглавие</label>
-			<input ng-model="adminReciept.reciept.title" type="text" class="form-control" id="title" placeholder="заглавие">
-		</div>
-		<!--prep time-->
-		<div class="form-group input-group input-group-sm">
-			<label for="prepTime">Време за подготвяне</label>
-			<input ng-model="adminReciept.reciept.cookingPreperationTime" type="number" class="form-control col-xs-2" id="prepTime" placeholder="време за подготвяне">
-		</div>
-		<!--Cooking time-->
-		<div class="form-group input-group input-group-sm">
-			<label for="time">Време за приготвяне</label>
-			<input ng-model="adminReciept.reciept.cookingTime" type="number" class="form-control col-xs-2" id="time" placeholder="време за приготвяне">
-		</div>
-		<!--Cooking all time-->
-		<div>	
-			<label >Общо време</label><br>
-			{{adminReciept.reciept.cookingPreperationTime -- adminReciept.reciept.cookingTime}}
-		</div>
-		<div class="form-inline">
-			<!--ingredients-->
-			<label for="ingredients">Продукти</label>
-			<div ng-repeat="ingredient in adminReciept.ingredients">
-				<div class="dropdown">
-					<input type="text" class="form-control" ng-model="ingredient.amount" placeholder="количество">
-
-					<label for="type">тип</label>
-					<select class="form-control" id="type" ng-model="ingredient.type">
-						<option>гр</option>
-						<option>мл</option>
-						<option>ч.л</option>
-						<option>щипка</option>
-					</select>
-
-					<input type="text" class="form-control" ng-model="ingredient.content" id="ingredient" placeholder="продукт">
-				</div>
-			</div>
-		</div><br>
-		<div>
-			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.addIngredient()"><i class="glyphicon glyphicon-plus"></i>Добави</button>
-			<button type="submit" class="btn btn-danger btn-xs" ng-click="adminReciept.removeIngredient()"><i class="glyphicon glyphicon-minus"></i>Премахни</button>
-		</div>
-		<div class="form-group">
-			<label for="short-direction">Начин на приготвяне</label>
-			<div ng-repeat="direction in adminReciept.directions track by $index">
-				<input ng-model="adminReciept.directions[$index]" type="text" class="form-control" id="direction" placeholder="стъпка">
-			</div>
-
-		</div>
-		<div>
-			<button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.addDirection()"><i class="glyphicon glyphicon-plus"></i>Добави</button>
-			<button type="submit" class="btn btn-danger btn-xs" ng-click="adminReciept.removeDirection()"><i class="glyphicon glyphicon-minus"></i>Премахни</button>
-		</div>
-		<div class="form-group">
-			<label for="short-description">Кратко описание</label>
-			<input ng-model="adminReciept.reciept.shortDescription" type="textarea" class="form-control" id="direction" placeholder="кратко описание">
-		</div>
-
-		<div class="form-group">
-			<label for="description">Описание</label>
-			<input ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание">
-		</div>
-		<button type="submit" ng-click="adminReciept.add()" class="btn btn-success">Добави</button>
-	</form>
-
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="title">Заглавие</label>
+            <input ng-model="adminReciept.reciept.title" type="text" class="form-control" id="title" placeholder="заглавие">
+        </div>
+        <!--prep time-->
+        <div class="form-group input-group input-group-sm">
+            <label for="prepTime">Време за подготвяне</label>
+            <input ng-model="adminReciept.reciept.cookingPreperationTime" type="number" class="form-control col-xs-2" id="prepTime" placeholder="време за подготвяне">
+        </div>
+        <!--Cooking time-->
+        <div class="form-group input-group input-group-sm">
+            <label for="time">Време за приготвяне</label>
+            <input ng-model="adminReciept.reciept.cookingTime" type="number" class="form-control col-xs-2" id="time" placeholder="време за приготвяне">
+        </div>
+        <!--Cooking all time-->
+        <div>
+            <label>Общо време</label>
+            <br> {{adminReciept.reciept.cookingPreperationTime -- adminReciept.reciept.cookingTime}}
+        </div>
+        <div class="form-inline">
+            <!--ingredients-->
+            <label for="ingredients">Продукти</label>
+            <div ng-repeat="ingredient in adminReciept.ingredients">
+                <div class="dropdown">
+                    <input type="text" class="form-control" ng-model="ingredient.amount" placeholder="количество">
+                    <label for="type">тип</label>
+                    <select class="form-control" id="type" ng-model="ingredient.type">
+                        <option>гр</option>
+                        <option>мл</option>
+                        <option>ч.л</option>
+                        <option>щипка</option>
+                    </select>
+                    <input type="text" class="form-control" ng-model="ingredient.content" id="ingredient" placeholder="продукт">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.addIngredient()"><i class="glyphicon glyphicon-plus"></i>Добави</button>
+            <button type="submit" class="btn btn-danger btn-xs" ng-click="adminReciept.removeIngredient()"><i class="glyphicon glyphicon-minus"></i>Премахни</button>
+        </div>
+        <div class="form-group">
+            <label for="short-direction">Начин на приготвяне</label>
+            <div ng-repeat="direction in adminReciept.directions track by $index">
+                <input ng-model="adminReciept.directions[$index]" type="text" class="form-control" id="direction" placeholder="стъпка">
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success btn-xs" ng-click="adminReciept.addDirection()"><i class="glyphicon glyphicon-plus"></i>Добави</button>
+            <button type="submit" class="btn btn-danger btn-xs" ng-click="adminReciept.removeDirection()"><i class="glyphicon glyphicon-minus"></i>Премахни</button>
+        </div>
+        <div class="form-group">
+            <label for="short-description">Кратко описание</label>
+            <input ng-model="adminReciept.reciept.shortDescription" type="textarea" class="form-control" id="direction" placeholder="кратко описание">
+        </div>
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <input ng-model="adminReciept.reciept.content" type="textarea" class="form-control" id="description" placeholder="описание">
+        </div>
+        <button type="submit" ng-click="adminReciept.add()" class="btn btn-success">Добави</button>
+    </form>
 </div>
