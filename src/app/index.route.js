@@ -22,14 +22,23 @@
         controller: 'RecieptController',
         controllerAs: 'reciept'
       });
+
+    $stateProvider
+      .state('category', {
+        url: '/reciept/category/:category',
+        templateUrl: 'app/reciept-category/reciept-category.html',
+        controller: 'RecieptCategoryController',
+        controllerAs: 'category'
+      });
+
     // $urlRouterProvider.otherwise('/');
   }
 
-angular
+  angular
     .module('cakeryAdmin')
     .config(cakeryAdmin);
 
-    /** @ngInject */
+  /** @ngInject */
   function cakeryAdmin($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('adminreciept', {
@@ -39,11 +48,11 @@ angular
         controllerAs: 'adminReciept'
       });
 
-      $stateProvider.state('adminListreciept', {
-              url: '/admin/recieptList',
-              templateUrl: 'app/admin/recieptList/reciepts.html',
-              controller: 'AdminRecieptListController',
-              controllerAs: 'adminRecieptList'
-            });
+    $stateProvider.state('adminListreciept', {
+      url: '/admin/recieptList',
+      templateUrl: 'app/admin/recieptList/reciepts.html',
+      controller: 'AdminRecieptListController',
+      controllerAs: 'adminRecieptList'
+    });
   }
 })();

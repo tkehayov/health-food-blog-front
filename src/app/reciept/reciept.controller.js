@@ -6,12 +6,12 @@
         .controller('RecieptController', RecieptController);
 
     /** @ngInject */
-    function RecieptController($http, $stateParams, BACKEND_URL) {
+    function RecieptController($http, $stateParams, CATEGORIES, BACKEND_URL) {
         var vm = this;
         var recieptId = $stateParams.id;
         vm.reciept = {};
         vm.imageUrl = BACKEND_URL + "/images";
-
+        vm.categories = CATEGORIES;
         vm.openImage = function() {
             console.log("Asdf");
         };
