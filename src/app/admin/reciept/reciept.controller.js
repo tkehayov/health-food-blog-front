@@ -14,6 +14,7 @@
         vm.reciept.cookingPreperationTime = parseInt(0);
         vm.reciept.cookingTime = parseInt(0);
         vm.reciept.images = [];
+        vm.reciept.subCategory = "";
         var fileName = "";
         vm.addIngredient = function() {
             vm.ingredients.push({});
@@ -133,7 +134,7 @@
                         $scope.croppedImageGallery = '';
 
                         var handleFileSelect3 = function(evt) {
-                            
+
 
                             var file = evt.currentTarget.files[0];
                             fileName = file.name;
@@ -153,7 +154,6 @@
                         $scope.$close();
                     }
                     $scope.addImageGallery = function() {
-                        // console.log($scope.croppedImageGallery);
                         vm.uploadImage('imageGallery', $scope.imageGallery);
                     }
                     $scope.name = 'top';

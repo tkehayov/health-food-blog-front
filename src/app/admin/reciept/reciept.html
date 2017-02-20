@@ -40,7 +40,11 @@
         <div class="form-group">
             <label for="title">Категория</label>
             <select class="form-control" id="type" ng-model="adminReciept.reciept.category">
-                <option ng-repeat="option in adminReciept.categories" value="{{option}}">{{option}}</option>
+                <option ng-repeat="(category,key) in adminReciept.categories" value="{{category}}">{{category}}</option>
+            </select>
+
+            <select class="form-control" id="type" ng-model="adminReciept.reciept.subCategory">
+                <option ng-repeat="(category,key) in adminReciept.categories[adminReciept.reciept.category]" value="{{key}}">{{key}}</option>
             </select>
         </div>
         <!--prep time-->

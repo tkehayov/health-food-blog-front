@@ -17,8 +17,13 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Рецепти<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ng-repeat="category in categories">
-                <a href="#">{{category}}</a>
+              <li ng-repeat="(category,subCategory) in categories">
+                <a class="primary-cat" href="#"><strong>{{category}}</strong></a>
+                <div ng-repeat="sub in subCategory">
+                  <a class="sub-cat" href="#">{{sub}}</a>
+                </div>
+                <div class="divider"></div>
+
               </li>
             </ul>
           </li>

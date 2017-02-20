@@ -4,7 +4,11 @@
   angular
     .module('cakeryFront')
     .controller('MainController', MainController)
-    .constant('CATEGORIES', ['категория1', 'категория2', 'категория3', 'категория4', 'категория5'])
+    .constant('CATEGORIES', {
+      'категория1': ['категория1-sub1', 'категория1-sub2', 'категория1-sub3'],
+      'категория2': ['категория2-sub1', 'категория2-sub2', 'категория2-sub3'],
+      'категория3': ['категория3-sub1', 'категория3-sub2', 'категория3-sub3']
+    })
     .constant('BACKEND_URL', '/back');
 
   /** @ngInject */
