@@ -169,7 +169,7 @@
             for (var i = 0; i < byteString.length; i++) {
                 ia[i] = byteString.charCodeAt(i);
             }
- 
+
             var blob = new Blob([ab], { type: mimeString });
             return blob;
         }
