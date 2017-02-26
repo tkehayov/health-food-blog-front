@@ -13,7 +13,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<h1>{{category.category}}</h1>
+				<p class="small">
+					<span>
+						<strong>
+							<a class="glyphicon glyphicon-home" href="#/"></a> /
+							<a href="#/reciept/category/{{category.category}}/">{{category.category}}</a> / <a href="#/reciept/category/{{category.subCategory}}/">{{category.subCategory}}</a> 
+						</strong>
+					</span>
+				</p>
 				<div class="well" ng-repeat="reciept in category.reciepts">
 					<div class="media">
 						<a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#/reciept/{{reciept.id}}">
