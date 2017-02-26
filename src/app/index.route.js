@@ -25,7 +25,7 @@
 
     $stateProvider
       .state('category', {
-        url: '/reciept/category/:category',
+        url: '/reciept/category/:category/:subCategory',
         templateUrl: 'app/reciept-category/reciept-category.html',
         controller: 'RecieptCategoryController',
         controllerAs: 'category'

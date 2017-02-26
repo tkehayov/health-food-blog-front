@@ -10,10 +10,13 @@
 		var vm = this;
 		vm.reciepts = [];
 		vm.category = $stateParams.category;
+		vm.subCategory = $stateParams.subCategory;
 
+		console.log(vm.subCategory);
+		console.log(vm.category);	
 		$http({
 			method: 'GET',
-			url: BACKEND_URL + "/reciepts/" + vm.category + "/categories/"
+			url: BACKEND_URL + "/reciepts/" + vm.category + "/categories/" + vm.subCategory
 		}).then(function successCallback(reciepts) {
 			vm.reciepts = reciepts.data;
 
