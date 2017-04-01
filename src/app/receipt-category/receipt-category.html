@@ -1,0 +1,46 @@
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-13">
+			<img class="img-responsive" src="assets/images/header.jpg" alt="alt">
+		</div>
+	</div>
+
+	<div class="row">
+		<acme-navbar></acme-navbar>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<p class="small">
+					<span>
+						<strong>
+							<a class="glyphicon glyphicon-home" href="#/"></a> /
+							<a href="#/receipt/category/{{category.category}}/">{{category.category}}</a> / <a href="#/receipt/category/{{category.subCategory}}/">{{category.subCategory}}</a> 
+						</strong>
+					</span>
+				</p>
+				<div class="well" ng-repeat="receipt in category.receipts">
+					<div class="media">
+						<a ng-class="{{$index%2==0}}? 'pull-right':'pull-left'" href="#/receipt/{{receipt.id}}">
+							<img class="media-object img-rounded" src="{{category.imageUrl}}/{{receipt.frontImage}}" alt="...">
+						</a>
+						<div class="media-body">
+							<h2 class="media-heading "><a class="recipe-title" href="#/receipt/{{receipt.id}}"> {{receipt.title}}</a></h2>
+							<p class="text-left">
+								<i class="glyphicon glyphicon-time text-green-light"></i> <span class="time-text">подготовка: </span> <span class="time-menu">{{receipt.cookingPreperationTime}} min</span><br>
+								<i class="glyphicon glyphicon-time text-green-dark"></i> <span class="time-text">готвене: </span> <span class="time-menu">{{receipt.cookingTime}} min</span><br>
+								<i class="glyphicon glyphicon-time text-blue"></i> <span class="time-text">общо: </span> <span class="time-menu">{{receipt.cookingTimeAll}} min</span>
+							</p>
+							<p>{{receipt.shortDescription}}
+							</p>
+							<p><a class="read-more" href="#/receipt/{{receipt.id}}">прочети повече</a></p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

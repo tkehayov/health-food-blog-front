@@ -18,9 +18,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Рецепти<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ng-repeat="(category,subCategory) in categories">
-                <a class="primary-cat" href="#/reciept/category/{{category}}/"><strong>{{category}}</strong></a>
+                <a class="primary-cat" href="#/receipt/category/{{category}}/"><strong>{{category}}</strong></a>
                 <div ng-repeat="sub in subCategory">
-                  <a class="sub-cat" href="#/reciept/category/{{category}}/{{sub}}">{{sub}}</a>
+                  <a class="sub-cat" href="#/receipt/category/{{category}}/{{sub}}">{{sub}}</a>
                 </div>
                 <div class="divider"></div>
 

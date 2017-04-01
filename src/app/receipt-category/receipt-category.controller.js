@@ -3,11 +3,11 @@
 
 	angular
 		.module('cakeryFront')
-		.controller('RecieptCategoryController', RecieptCategoryController);
+		.controller('ReceiptCategoryController', ReceiptCategoryController);
 
-	function RecieptCategoryController($http, $stateParams, CATEGORIES, BACKEND_URL) {
+	function ReceiptCategoryController($http, $stateParams, CATEGORIES, BACKEND_URL) {
 		var vm = this;
-		vm.reciepts = [];
+		vm.receipts = [];
 		vm.category = $stateParams.category;
 		vm.subCategory = $stateParams.subCategory;
 
@@ -15,9 +15,9 @@
 		console.log(vm.category);	
 		$http({
 			method: 'GET',
-			url: BACKEND_URL + "/reciepts/" + vm.category + "/categories/" + vm.subCategory
-		}).then(function successCallback(reciepts) {
-			vm.reciepts = reciepts.data;
+			url: BACKEND_URL + "/receipts/" + vm.category + "/categories/" + vm.subCategory
+		}).then(function successCallback(receipts) {
+			vm.receipts = receipts.data;
 		}, function errorCallback() {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.

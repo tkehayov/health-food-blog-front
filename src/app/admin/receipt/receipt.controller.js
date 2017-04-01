@@ -2,19 +2,19 @@
     'use strict';
     angular
         .module('cakeryAdmin')
-        .controller('AdminRecieptController', AdminRecieptController);
+        .controller('AdminReceiptController', AdminReceiptController);
 
     /** @ngInject */
-    function AdminRecieptController($scope, $http, $modal, $timeout, BACKEND_URL, CATEGORIES, Notification) {
+    function AdminReceiptController($scope, $http, $modal, $timeout, BACKEND_URL, CATEGORIES, Notification) {
         var vm = this;
-        vm.reciept = {};
+        vm.receipt = {};
         vm.categories = CATEGORIES;
         vm.ingredients = [{}];
         vm.directions = [""];
-        vm.reciept.cookingPreperationTime = parseInt(0);
-        vm.reciept.cookingTime = parseInt(0);
-        vm.reciept.images = [];
-        vm.reciept.subCategory = "";
+        vm.receipt.cookingPreperationTime = parseInt(0);
+        vm.receipt.cookingTime = parseInt(0);
+        vm.receipt.images = [];
+        vm.receipt.subCategory = "";
         var fileName = "";
         vm.addIngredient = function() {
             vm.ingredients.push({});
@@ -79,10 +79,10 @@
             }
             if (imageType == "imageGallery") {
                 croppedImage = dataURItoBlob(croppedImagetoSend);
-                //    vm.reciept.images.push(image);
+                //    vm.receipt.images.push(image);
             }
             formData.set("file", croppedImage, fileName);
-            $http.post(BACKEND_URL + "/reciepts/image", formData, {
+            $http.post(BACKEND_URL + "/receipts/image", formData, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined
@@ -90,14 +90,14 @@
             })
                 .success(function(image) {
                     if (imageType == "frontImage") {
-                        vm.reciept.frontImage = image;
+                        vm.receipt.frontImage = image;
                     }
 
                     if (imageType == "frontImageGallery") {
-                        vm.reciept.frontImageGallery = image;
+                        vm.receipt.frontImageGallery = image;
                     }
                     if (imageType == "imageGallery") {
-                        vm.reciept.images.push(image);
+                        vm.receipt.images.push(image);
                     }
                     Notification.success('Success');
                 })
@@ -107,12 +107,12 @@
         }
 
         vm.add = function() {
-            vm.reciept.directions = vm.directions;
-            vm.reciept.ingredients = vm.ingredients;
-            vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
-            vm.reciept.cookingTimeAll = parseInt(vm.reciept.cookingPreperationTime) + parseInt(vm.reciept.cookingTime);
+            vm.receipt.directions = vm.directions;
+            vm.receipt.ingredients = vm.ingredients;
+            vm.receipt.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
+            vm.receipt.cookingTimeAll = parseInt(vm.receipt.cookingPreperationTime) + parseInt(vm.receipt.cookingTime);
 
-            $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
+            $http.post(BACKEND_URL + '/receipts', vm.receipt).then(function() {
 
                 Notification.success('Success');
             }, function(error) {

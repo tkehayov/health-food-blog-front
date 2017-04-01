@@ -16,18 +16,18 @@
       });
 
     $stateProvider
-      .state('reciept', {
-        url: '/reciept/:id',
-        templateUrl: 'app/reciept/reciept.html',
-        controller: 'RecieptController',
-        controllerAs: 'reciept'
+      .state('receipt', {
+        url: '/receipt/:id',
+        templateUrl: 'app/receipt/receipt.html',
+        controller: 'ReceiptController',
+        controllerAs: 'receipt'
       });
 
     $stateProvider
       .state('category', {
-        url: '/reciept/category/:category/:subCategory',
-        templateUrl: 'app/reciept-category/reciept-category.html',
-        controller: 'RecieptCategoryController',
+        url: '/receipt/category/:category/:subCategory',
+        templateUrl: 'app/receipt-category/receipt-category.html',
+        controller: 'ReceiptCategoryController',
         controllerAs: 'category'
       });
 
@@ -41,18 +41,18 @@
   /** @ngInject */
   function cakeryAdmin($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('adminreciept', {
-        url: '/admin/reciept',
-        templateUrl: 'app/admin/reciept/reciept.html',
-        controller: 'AdminRecieptController',
-        controllerAs: 'adminReciept'
+      .state('adminreceipt', {
+        url: '/admin/receipt',
+        templateUrl: 'app/admin/receipt/receipt.html',
+        controller: 'AdminReceiptController',
+        controllerAs: 'adminReceipt'
       });
 
-    $stateProvider.state('adminListreciept', {
-      url: '/admin/recieptList',
-      templateUrl: 'app/admin/recieptList/reciepts.html',
-      controller: 'AdminRecieptListController',
-      controllerAs: 'adminRecieptList'
+    $stateProvider.state('adminListreceipt', {
+      url: '/admin/receiptList',
+      templateUrl: 'app/admin/receiptList/receipts.html',
+      controller: 'AdminReceiptListController',
+      controllerAs: 'adminReceiptList'
     });
   }
 })();

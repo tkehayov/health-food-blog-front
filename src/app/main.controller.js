@@ -18,7 +18,7 @@
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.myInterval = 3000;
-    vm.reciepts = [];
+    vm.receipts = [];
     vm.imageUrl = BACKEND_URL + "/images";
     vm.slides = [
       {
@@ -31,9 +31,9 @@
 
     $http({
       method: 'GET',
-      url: BACKEND_URL + '/reciepts'
-    }).then(function successCallback(reciepts) {
-      vm.reciepts = reciepts.data;
+      url: BACKEND_URL + '/receipts'
+    }).then(function successCallback(receipts) {
+      vm.receipts = receipts.data;
     }, function errorCallback() {
       // called asynchronously if an error occurs
       // or server returns response with an error status.

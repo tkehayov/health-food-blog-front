@@ -3,17 +3,17 @@
 
   angular
     .module('cakeryAdmin')
-    .controller('AdminRecieptListController', AdminRecieptListController);
+    .controller('AdminReceiptListController', AdminReceiptListController);
 
   /** @ngInject */
-  function AdminRecieptListController($scope, $http, BACKEND_URL,  Notification) {
+  function AdminReceiptListController($scope, $http, BACKEND_URL,  Notification) {
     var vm = this;
     console.log("asdf");
-    vm.reciept = {};
+    vm.receipt = {};
     vm.ingredients = [{}];
     vm.directions = [""];
-    vm.reciept.cookingPreperationTime = parseInt(0);
-    vm.reciept.cookingTime = parseInt(0);
+    vm.receipt.cookingPreperationTime = parseInt(0);
+    vm.receipt.cookingTime = parseInt(0);
     var fileName = "";
     vm.addIngredient = function() {
       vm.ingredients.push({});
@@ -77,7 +77,7 @@
         croppedImage = dataURItoBlob(vm.croppedFrontImageGallery);
       }
       formData.set("file", croppedImage, fileName);
-      $http.post(BACKEND_URL + "/reciepts/image", formData, {
+      $http.post(BACKEND_URL + "/receipts/image", formData, {
         transformRequest: angular.identity,
         headers: {
           'Content-Type': undefined
@@ -85,11 +85,11 @@
       })
         .success(function(image) {
           if (imageType == "frontImage") {
-            vm.reciept.frontImage = image;
+            vm.receipt.frontImage = image;
           }
 
           if (imageType == "frontImageGallery") {
-            vm.reciept.frontImageGallery = image;
+            vm.receipt.frontImageGallery = image;
           }
           Notification.success('Success');
         })
@@ -99,12 +99,12 @@
     }
 
     vm.add = function() {
-      vm.reciept.directions = vm.directions;
-      vm.reciept.ingredients = vm.ingredients;
-      vm.reciept.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
-      vm.reciept.cookingTimeAll = parseInt(vm.reciept.cookingPreperationTime) + parseInt(vm.reciept.cookingTime);
+      vm.receipt.directions = vm.directions;
+      vm.receipt.ingredients = vm.ingredients;
+      vm.receipt.createdDate = moment().format('YYYY-MM-DD[T]HH:mm:ss');
+      vm.receipt.cookingTimeAll = parseInt(vm.receipt.cookingPreperationTime) + parseInt(vm.receipt.cookingTime);
 
-      $http.post(BACKEND_URL + '/reciepts', vm.reciept).then(function() {
+      $http.post(BACKEND_URL + '/receipts', vm.receipt).then(function() {
 
         Notification.success('Success');
       }, function(error) {
