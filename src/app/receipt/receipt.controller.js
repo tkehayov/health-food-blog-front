@@ -15,8 +15,8 @@
 
         vm.addComment = function() {
             console.log(vm.comments);
-
-            $http.post(BACKEND_URL + '/receipt/comments', vm.comments).then(function() {
+             vm.comments.receiptId = receiptId;   
+            $http.post(BACKEND_URL + '/receipts/comment', vm.comments).then(function() {
 
             }, function() {
 
@@ -25,7 +25,7 @@
 
         $http({
             method: 'GET',
-            url: BACKEND_URL + '/' + receiptId + '/receipts'
+            url: BACKEND_URL + '/receipts/' + receiptId
         }).then(function successCallback(receipt) {
             vm.receipt = receipt.data;
 
