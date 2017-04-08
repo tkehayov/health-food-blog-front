@@ -26,8 +26,8 @@
                             <i class="glyphicon glyphicon-time text-green-dark"></i> <span class="time-text">готвене: </span>
                             <span class="time-menu">{{receipt.receipt.cookingTime}} min</span>
                             <br>
-                            <i class="glyphicon glyphicon-time text-blue"></i> <span class="time-text">общо: </span> <span
-                                class="time-menu">{{receipt.receipt.cookingTimeAll}} min</span>
+                            <i class="glyphicon glyphicon-time text-blue"></i> <span class="time-text">общо: </span>
+                            <span class="time-menu">{{receipt.receipt.cookingTimeAll}} min</span>
                             <br>
                         </p>
                         <!-- Load Facebook SDK for JavaScript -->
@@ -40,7 +40,7 @@
                                 js.id = id;
                                 js.src = "//connect.facebook.net/bg_BG/sdk.js#xfbml=1&version=v2.8";
                                 fjs.parentNode.insertBefore(js, fjs);
-                            } (document, 'script', 'facebook-jssdk'));
+                            }(document, 'script', 'facebook-jssdk'));
                         </script>
                         <p>
                             <button class="share-button" ng-click="receipt.print()"><i class="glyphicon glyphicon-share"></i> Принтирай</button>
@@ -59,7 +59,7 @@
                 <div>
                     <ng-image-gallery images="receipt.receipt.images" methods="receipt.methods" thumbnails="true" inline="false" img-bubbles="true"
                         bg-close="false" bubbles="true" img-anim="fadeup" conf="conf">
-                        </ng-image-gallery>
+                    </ng-image-gallery>
                 </div>
                 <h3>Продукти</h3>
                 <ul class="list-group">
@@ -78,7 +78,17 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-lg-5 col-md-offset-2">
-                <h3>Коментар</h3>
+                <h3>Коментари</h3>
+                <div class="comments">
+                    <div class="panel panel-info" ng-repeat="comment in receipt.receipt.comments">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{comment.author}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{comment.comment}}
+                        </div>
+                    </div>
+                </div>
                 <form>
                     <div class="form-group">
                         <label for="emailname">Име/Email</label>
@@ -89,8 +99,8 @@
                         <textarea data-ng-model="receipt.comments.comment" type="textarea" class="form-control" id="comment"></textarea>
                     </div>
                     <div class="g-recaptcha" data-sitekey="6LdNHhwUAAAAAPGBIc26oWwDB_jUSPBT8qVv1QWB"></div>
-                    
-                    <button type="submit" ng-click="receipt.addComment()" class="btn btn-info">Добави</button>                    
+
+                    <button type="submit" ng-click="receipt.addComment()" class="btn btn-info">Добави</button>
                 </form>
             </div>
         </div>

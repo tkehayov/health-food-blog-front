@@ -14,10 +14,10 @@
         vm.comments = {};
 
         vm.addComment = function() {
-            console.log(vm.comments);
              vm.comments.receiptId = receiptId;   
             $http.post(BACKEND_URL + '/receipts/comment', vm.comments).then(function() {
-
+                vm.receipt.comments.push(vm.comments);
+                vm.comments = {};                
             }, function() {
 
             });
