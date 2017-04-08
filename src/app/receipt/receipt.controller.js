@@ -16,7 +16,7 @@
         vm.addComment = function() {
              vm.comments.receiptId = receiptId;   
             $http.post(BACKEND_URL + '/receipts/comment', vm.comments).then(function() {
-                vm.receipt.comments.push(vm.comments);
+                vm.receipt.comments.unshift(vm.comments);
                 vm.comments = {};                
             }, function() {
 
