@@ -9,7 +9,7 @@
       'категория2': ['категория2-sub1', 'категория2-sub2', 'категория2-sub3'],
       'категория3': ['категория3-sub1', 'категория3-sub2', 'категория3-sub3']
     })
-    .constant('BACKEND_URL', '/back');
+    .constant('BACKEND_URL', 'http://localhost:8080');
 
   /** @ngInject */
   function MainController($injector, $http, BACKEND_URL) {

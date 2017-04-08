@@ -15,7 +15,7 @@
 
         vm.addComment = function() {
             console.log(vm.comments);
-            
+
             $http.post(BACKEND_URL + '/receipt/comments', vm.comments).then(function() {
 
             }, function() {
@@ -30,7 +30,7 @@
             vm.receipt = receipt.data;
 
             angular.forEach(vm.receipt.images, function(image, key) {
-                vm.receipt.images[key] = { "thumbUrl": vm.imageUrl + "/" + image.source, "url": vm.imageUrl + "/" + image.source };
+                vm.receipt.images[key] = { "thumbUrl": vm.imageUrl + "/" + image.name, "url": vm.imageUrl + "/" + image.source };
             });
         }, function errorCallback() {
             // called asynchronously if an error occurs
