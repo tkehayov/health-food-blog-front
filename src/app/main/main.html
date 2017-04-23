@@ -45,7 +45,9 @@
 
         <!--pagination-->
         <ul class="pagination">
-          <li ng-repeat="page in main.totalPages"><a ng-click="main.getReceipt(page)">{{page}}</a></li>
+          <li ng-repeat="page in main.totalPages" ng-class="{'active': page === main.currentPage}">
+            <a ng-click="main.getReceipt(page)">{{page}}</a>
+          </li>
         </ul>
       </div>
     </div>

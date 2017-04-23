@@ -15,7 +15,7 @@
   function MainController($injector, $location, $http, BACKEND_URL) {
 
     var vm = this;
-
+    vm.currentPage = parseInt($location.search().page);
     vm.totalPages = [];
     vm.classAnimation = '';
     vm.receipts = [];
@@ -32,10 +32,11 @@
     vm.getReceipt = function(page) {
       $location.search('size', 2);
       $location.search('page', page);
-      
+      vm.currentPage = parseInt($location.search().page);
+
       $http({
         method: 'GET',
-        url: BACKEND_URL + '/receipts/?page=' + $location.search().page + '&size=' + $location.search().size
+        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=' + $location.search().size
       }).then(function successCallback(receipts) {
 
         if (vm.totalPages.length == 0) {
@@ -53,6 +54,6 @@
 
     }
 
-    vm.getReceipt(0, 2);
+    vm.getReceipt(vm.currentPage, 2);
   }
 })();
