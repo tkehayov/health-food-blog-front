@@ -12,12 +12,12 @@
     .constant('BACKEND_URL', 'http://localhost:8080');
 
   /** @ngInject */
-  function MainController($injector, $http, BACKEND_URL) {
+  function MainController($injector, $location, $http, BACKEND_URL) {
+
     var vm = this;
 
-    vm.awesomeThings = [];
+    vm.totalPages = [];
     vm.classAnimation = '';
-    vm.myInterval = 3000;
     vm.receipts = [];
     vm.imageUrl = BACKEND_URL + "/images";
     vm.slides = [
@@ -29,14 +29,30 @@
       }
     ];
 
-    $http({
-      method: 'GET',
-      url: BACKEND_URL + '/receipts'
-    }).then(function successCallback(receipts) {
-      vm.receipts = receipts.data;
-    }, function errorCallback() {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-    });
+    vm.getReceipt = function(page) {
+      $location.search('size', 2);
+      $location.search('page', page);
+      
+      $http({
+        method: 'GET',
+        url: BACKEND_URL + '/receipts/?page=' + $location.search().page + '&size=' + $location.search().size
+      }).then(function successCallback(receipts) {
+
+        if (vm.totalPages.length == 0) {
+          var index = 0;
+          while (index < receipts.data[0].totalPages) {
+            vm.totalPages.push(index);
+            index++;
+          }
+        }
+        vm.receipts = receipts.data;
+      }, function errorCallback() {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+
+    }
+
+    vm.getReceipt(0, 2);
   }
 })();

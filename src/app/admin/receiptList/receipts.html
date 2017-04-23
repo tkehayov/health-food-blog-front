@@ -2,17 +2,21 @@
 	<div class="row">
 		<table class="table table-hover">
 			<th>заглавие</th>
+			<th>кратко опис.</th>
 			<th>редактирай</th>
 			<th>изтрий</th>
-			<tr>
+			<tr ng-repeat="receipt in adminReceiptList.receipts">
 				<td>
-					заглавие
+					{{receipt.title}}
+				</td>
+				<td>
+					{{receipt.shortDescription}}
 				</td>
 				<td>
 					<a class="black-font" href=""><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>
 				</td>
 				<td>
-					<a class="black-font" href=""><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
+					<a class="black-font" ng-click="adminReceiptList.delete(receipt.id)" href=""><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
 				</td>
 			</tr>
 		</table>

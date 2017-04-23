@@ -29,8 +29,10 @@
             <div class="media-body">
               <h2 class="media-heading "><a class="recipe-title" href="#/receipt/{{receipt.id}}"> {{receipt.title}}</a></h2>
               <p class="text-left">
-                <i class="glyphicon glyphicon-time text-green-light"></i> <span class="time-text">подготовка: </span> <span class="time-menu">{{receipt.cookingPreperationTime}} min</span><br>
-                <i class="glyphicon glyphicon-time text-green-dark"></i> <span class="time-text">готвене: </span> <span class="time-menu">{{receipt.cookingTime}} min</span><br>
+                <i class="glyphicon glyphicon-time text-green-light"></i> <span class="time-text">подготовка: </span>
+                <span class="time-menu">{{receipt.cookingPreperationTime}} min</span><br>
+                <i class="glyphicon glyphicon-time text-green-dark"></i> <span class="time-text">готвене: </span>
+                <span class="time-menu">{{receipt.cookingTime}} min</span><br>
                 <i class="glyphicon glyphicon-time text-blue"></i> <span class="time-text">общо: </span> <span class="time-menu">{{receipt.cookingTimeAll}} min</span>
               </p>
               <p>{{receipt.shortDescription}}
@@ -40,6 +42,11 @@
             </div>
           </div>
         </div>
+
+        <!--pagination-->
+        <ul class="pagination">
+          <li ng-repeat="page in main.totalPages"><a ng-click="main.getReceipt(page)">{{page}}</a></li>
+        </ul>
       </div>
     </div>
   </div>
