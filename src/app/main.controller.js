@@ -4,10 +4,13 @@
   angular
     .module('cakeryFront')
     .controller('MainController', MainController)
+    
     .constant('CATEGORIES', {
-      'категория1': ['категория1-sub1', 'категория1-sub2', 'категория1-sub3'],
-      'категория2': ['категория2-sub1', 'категория2-sub2', 'категория2-sub3'],
-      'категория3': ['категория3-sub1', 'категория3-sub2', 'категория3-sub3']
+      'палачинки':[],
+      'солени ястия': ['супи'],
+      'идеи за празниците': ['коледни идеи'],
+      'sweetland': ['мъфини'],
+      'пътуване':[]
     })
     .constant('BACKEND_URL', 'http://localhost:8080');
 
@@ -30,13 +33,19 @@
     ];
 
     vm.getReceipt = function(page) {
-      $location.search('size', 2);
-      $location.search('page', page);
+      if (!isNaN(page)) {
+        $location.search('page', page);
+      }
+
+      if (isNaN(page)) {
+        page = 0;
+      }
+
       vm.currentPage = parseInt($location.search().page);
 
       $http({
         method: 'GET',
-        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=' + $location.search().size
+        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=' + 2
       }).then(function successCallback(receipts) {
 
         if (vm.totalPages.length == 0) {
