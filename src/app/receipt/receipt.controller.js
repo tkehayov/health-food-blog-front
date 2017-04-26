@@ -30,7 +30,7 @@
             vm.receipt = receipt.data;
 
             angular.forEach(vm.receipt.images, function(image, key) {
-                vm.receipt.images[key] = { "thumbUrl": vm.imageUrl + "/" + image.name, "url": vm.imageUrl + "/" + image.source };
+                vm.receipt.images[key] = { "thumbUrl": vm.imageUrl + "/" + image.name, "url": vm.imageUrl + "/" + image.name };
             });
         }, function errorCallback() {
             // called asynchronously if an error occurs
