@@ -5,7 +5,7 @@
         .controller('AdminReceiptController', AdminReceiptController);
 
     /** @ngInject */
-    function AdminReceiptController($scope, $http, $modal, $timeout, BACKEND_URL, CATEGORIES, Notification) {
+    function AdminReceiptController($scope, $http, $modal, $timeout, BACKEND_URL, BACKEND_IMAGES_URL, CATEGORIES, Notification) {
         var vm = this;
         vm.receipt = {};
         vm.categories = CATEGORIES;
@@ -79,10 +79,9 @@
             }
             if (imageType == "imageGallery") {
                 croppedImage = dataURItoBlob(croppedImagetoSend);
-                //    vm.receipt.images.push(image);
             }
             formData.set("file", croppedImage, fileName);
-            $http.post(BACKEND_URL + "/receipts/image", formData, {
+            $http.post(BACKEND_IMAGES_URL + "/image", formData, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined

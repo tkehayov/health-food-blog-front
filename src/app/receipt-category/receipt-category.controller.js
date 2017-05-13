@@ -11,8 +11,6 @@
 		vm.category = $stateParams.category;
 		vm.subCategory = $stateParams.subCategory;
 
-		console.log(vm.subCategory);
-		console.log(vm.category);	
 		$http({
 			method: 'GET',
 			url: BACKEND_URL + "/receipts/" + vm.category + "/categories/" + vm.subCategory

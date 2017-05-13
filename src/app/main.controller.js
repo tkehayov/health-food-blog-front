@@ -12,17 +12,21 @@
       'sweetland': ['мъфини'],
       'пътуване':[]
     })
-    .constant('BACKEND_URL', 'http://localhost:8080');
+    .constant('BACKEND_URL', 'http://localhost:8080')
+    .constant('BACKEND_IMAGES_URL', 'http://localhost:8081');
+
+    // production
+    // .constant('BACKEND_URL', 'http://localhost:8080');
 
   /** @ngInject */
-  function MainController($injector, $location, $http, BACKEND_URL) {
+  function MainController($injector, $location, $http, BACKEND_URL, BACKEND_IMAGES_URL) {
 
     var vm = this;
     vm.currentPage = parseInt($location.search().page);
     vm.totalPages = [];
     vm.classAnimation = '';
     vm.receipts = [];
-    vm.imageUrl = BACKEND_URL + "/images";
+    vm.imageUrl = BACKEND_IMAGES_URL + "/images";
     vm.slides = [
       {
         image: 'assets/images/vegie.jpg'

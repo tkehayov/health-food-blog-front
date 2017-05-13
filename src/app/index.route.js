@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -31,7 +31,7 @@
         controllerAs: 'category'
       });
 
-    // $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
   }
 
   angular
@@ -39,7 +39,7 @@
     .config(cakeryAdmin);
 
   /** @ngInject */
-  function cakeryAdmin($stateProvider, $urlRouterProvider) {
+  function cakeryAdmin($stateProvider) {
     $stateProvider
       .state('adminreceipt', {
         url: '/admin/receipt',

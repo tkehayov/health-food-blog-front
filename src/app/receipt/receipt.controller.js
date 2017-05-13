@@ -5,19 +5,19 @@
         .module('cakeryFront')
         .controller('ReceiptController', ReceiptController);
 
-    function ReceiptController($http, $stateParams, CATEGORIES, BACKEND_URL) {
+    function ReceiptController($http, $window, $stateParams, CATEGORIES, BACKEND_URL, BACKEND_IMAGES_URL) {
         var vm = this;
         var receiptId = $stateParams.id;
         vm.receipt = {};
-        vm.imageUrl = BACKEND_URL + "/images";
+        vm.imageUrl = BACKEND_IMAGES_URL + "/images";
         vm.categories = CATEGORIES;
         vm.comments = {};
 
         vm.addComment = function() {
-             vm.comments.receiptId = receiptId;   
+            vm.comments.receiptId = receiptId;
             $http.post(BACKEND_URL + '/receipts/comment', vm.comments).then(function() {
                 vm.receipt.comments.unshift(vm.comments);
-                vm.comments = {};                
+                vm.comments = {};
             }, function() {
 
             });
@@ -38,10 +38,10 @@
         });
 
         vm.getUrl = function() {
-            return window.location.href;
+            return $window.location.href;
         };
         vm.print = function() {
-            window.print();
+            $window.print();
         }
     }
 })();

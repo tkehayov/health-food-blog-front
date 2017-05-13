@@ -14,14 +14,14 @@
     $http.get(BACKEND_URL + '/receipts').then(function(receipts) {
       vm.receipts = receipts.data;
     }, function() {
-      console.log("some error occured");
+      Notification.error("възникна грешка");
     });
 
     vm.delete = function(id) {
       $http.delete(BACKEND_URL + '/receipts/' + id).then(function() {
-        Notification.success('Success');
+        Notification.success('изтрита');
       }, function() {
-        console.log("some error occured");
+        Notification.error("възникна грешка");
       });
     }
   }
