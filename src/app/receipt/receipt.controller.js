@@ -9,7 +9,7 @@
         var vm = this;
         var receiptId = $stateParams.id;
         vm.receipt = {};
-        vm.imageUrl = BACKEND_IMAGES_URL + "/images";
+        vm.imageUrl = BACKEND_IMAGES_URL;
         vm.categories = CATEGORIES;
         vm.comments = {};
 
@@ -28,9 +28,8 @@
             url: BACKEND_URL + '/receipts/' + receiptId
         }).then(function successCallback(receipt) {
             vm.receipt = receipt.data;
-
             angular.forEach(vm.receipt.images, function(image, key) {
-                vm.receipt.images[key] = { "thumbUrl": vm.imageUrl + "/" + image.name, "url": vm.imageUrl + "/" + image.name };
+                vm.receipt.images[key] = { id: key, "thumbUrl": BACKEND_IMAGES_URL + "/" + image.name, "url": BACKEND_IMAGES_URL + "/" + image.name };
             });
         }, function errorCallback() {
             // called asynchronously if an error occurs

@@ -9210,8 +9210,8 @@ return jQuery;
 }));
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window) {'use strict';
@@ -9268,7 +9268,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message += '\nhttp://errors.angularjs.org/1.5.10/' +
+    message += '\nhttp://errors.angularjs.org/1.5.11/' +
       (module ? module + '/' : '') + code;
 
     for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -10726,12 +10726,16 @@ function getNgAttribute(element, ngAttr) {
 }
 
 function allowAutoBootstrap(document) {
-  if (!document.currentScript) {
+  var script = document.currentScript;
+  var src = script && script.getAttribute('src');
+
+  if (!src) {
     return true;
   }
-  var src = document.currentScript.getAttribute('src');
+
   var link = document.createElement('a');
   link.href = src;
+
   if (document.location.origin === link.origin) {
     // Same-origin resources are always allowed, even for non-whitelisted schemes.
     return true;
@@ -11778,11 +11782,11 @@ function toDebugString(obj) {
 var version = {
   // These placeholder strings will be replaced by grunt's `build` task.
   // They need to be double- or single-quoted.
-  full: '1.5.10',
+  full: '1.5.11',
   major: 1,
   minor: 5,
-  dot: 10,
-  codeName: 'asynchronous-synchronization'
+  dot: 11,
+  codeName: 'princely-quest'
 };
 
 
@@ -16954,7 +16958,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
   var bindingCache = createMap();
 
   function parseIsolateBindings(scope, directiveName, isController) {
-    var LOCAL_REGEXP = /^\s*([@&<]|=(\*?))(\??)\s*(\w*)\s*$/;
+    var LOCAL_REGEXP = /^\s*([@&<]|=(\*?))(\??)\s*([\w$]*)\s*$/;
 
     var bindings = createMap();
 
@@ -23311,7 +23315,7 @@ function $LogProvider() {
   this.debugEnabled = function(flag) {
     if (isDefined(flag)) {
       debug = flag;
-    return this;
+      return this;
     } else {
       return debug;
     }
@@ -29345,6 +29349,14 @@ function $$CookieReader($document) {
   var lastCookies = {};
   var lastCookieString = '';
 
+  function safeGetCookie(rawDocument) {
+    try {
+      return rawDocument.cookie || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
   function safeDecodeURIComponent(str) {
     try {
       return decodeURIComponent(str);
@@ -29355,7 +29367,7 @@ function $$CookieReader($document) {
 
   return function() {
     var cookieArray, cookie, i, index, name;
-    var currentCookieString = rawDocument.cookie || '';
+    var currentCookieString = safeGetCookie(rawDocument);
 
     if (currentCookieString !== lastCookieString) {
       lastCookieString = currentCookieString;
@@ -39864,11 +39876,13 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  * @multiElement
  *
  * @description
- * The `ngShow` directive shows or hides the given HTML element based on the expression
- * provided to the `ngShow` attribute. The element is shown or hidden by removing or adding
- * the `.ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
- * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
+ * The `ngShow` directive shows or hides the given HTML element based on the expression provided to
+ * the `ngShow` attribute.
+ *
+ * The element is shown or hidden by removing or adding the `.ng-hide` CSS class onto the element.
+ * The `.ng-hide` CSS class is predefined in AngularJS and sets the display style to none (using an
+ * `!important` flag). For CSP mode please add `angular-csp.css` to your HTML file (see
+ * {@link ng.directive:ngCsp ngCsp}).
  *
  * ```html
  * <!-- when $scope.myValue is truthy (element is visible) -->
@@ -39878,31 +39892,32 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  * <div ng-show="myValue" class="ng-hide"></div>
  * ```
  *
- * When the `ngShow` expression evaluates to a falsy value then the `.ng-hide` CSS class is added to the class
- * attribute on the element causing it to become hidden. When truthy, the `.ng-hide` CSS class is removed
- * from the element causing the element not to appear hidden.
+ * When the `ngShow` expression evaluates to a falsy value then the `.ng-hide` CSS class is added
+ * to the class attribute on the element causing it to become hidden. When truthy, the `.ng-hide`
+ * CSS class is removed from the element causing the element not to appear hidden.
  *
- * ## Why is !important used?
+ * ## Why is `!important` used?
  *
- * You may be wondering why !important is used for the `.ng-hide` CSS class. This is because the `.ng-hide` selector
- * can be easily overridden by heavier selectors. For example, something as simple
- * as changing the display style on a HTML list item would make hidden elements appear visible.
- * This also becomes a bigger issue when dealing with CSS frameworks.
+ * You may be wondering why `!important` is used for the `.ng-hide` CSS class. This is because the
+ * `.ng-hide` selector can be easily overridden by heavier selectors. For example, something as
+ * simple as changing the display style on a HTML list item would make hidden elements appear
+ * visible. This also becomes a bigger issue when dealing with CSS frameworks.
  *
- * By using !important, the show and hide behavior will work as expected despite any clash between CSS selector
- * specificity (when !important isn't used with any conflicting styles). If a developer chooses to override the
- * styling to change how to hide an element then it is just a matter of using !important in their own CSS code.
+ * By using `!important`, the show and hide behavior will work as expected despite any clash between
+ * CSS selector specificity (when `!important` isn't used with any conflicting styles). If a
+ * developer chooses to override the styling to change how to hide an element then it is just a
+ * matter of using `!important` in their own CSS code.
  *
  * ### Overriding `.ng-hide`
  *
- * By default, the `.ng-hide` class will style the element with `display: none!important`. If you wish to change
- * the hide behavior with ngShow/ngHide then this can be achieved by restating the styles for the `.ng-hide`
- * class CSS. Note that the selector that needs to be used is actually `.ng-hide:not(.ng-hide-animate)` to cope
- * with extra animation classes that can be added.
+ * By default, the `.ng-hide` class will style the element with `display: none !important`. If you
+ * wish to change the hide behavior with `ngShow`/`ngHide`, you can simply overwrite the styles for
+ * the `.ng-hide` CSS class. Note that the selector that needs to be used is actually
+ * `.ng-hide:not(.ng-hide-animate)` to cope with extra animation classes that can be added.
  *
  * ```css
  * .ng-hide:not(.ng-hide-animate) {
- *   /&#42; this is just another form of hiding an element &#42;/
+ *   /&#42; These are just alternative ways of hiding an element &#42;/
  *   display: block!important;
  *   position: absolute;
  *   top: -9999px;
@@ -39910,29 +39925,20 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  * }
  * ```
  *
- * By default you don't need to override in CSS anything and the animations will work around the display style.
+ * By default you don't need to override anything in CSS and the animations will work around the
+ * display style.
  *
  * ## A note about animations with `ngShow`
  *
- * Animations in ngShow/ngHide work with the show and hide events that are triggered when the directive expression
- * is true and false. This system works like the animation system present with ngClass except that
- * you must also include the !important flag to override the display property
- * so that you can perform an animation when the element is hidden during the time of the animation.
+ * Animations in `ngShow`/`ngHide` work with the show and hide events that are triggered when the
+ * directive expression is true and false. This system works like the animation system present with
+ * `ngClass` except that you must also include the `!important` flag to override the display
+ * property so that the elements are not actually hidden during the animation.
  *
  * ```css
- * //
- * //a working example can be found at the bottom of this page
- * //
+ * /&#42; A working example can be found at the bottom of this page. &#42;/
  * .my-element.ng-hide-add, .my-element.ng-hide-remove {
- *   /&#42; this is required as of 1.3x to properly
- *      apply all styling in a show/hide animation &#42;/
- *   transition: 0s linear all;
- * }
- *
- * .my-element.ng-hide-add-active,
- * .my-element.ng-hide-remove-active {
- *   /&#42; the transition is defined in the active class &#42;/
- *   transition: 1s linear all;
+ *   transition: all 0.5s linear;
  * }
  *
  * .my-element.ng-hide-add { ... }
@@ -39941,76 +39947,108 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  * .my-element.ng-hide-remove.ng-hide-remove-active { ... }
  * ```
  *
- * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display
- * property to block during animation states--ngAnimate will handle the style toggling automatically for you.
+ * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display property
+ * to block during animation states - ngAnimate will automatically handle the style toggling for you.
  *
  * @animations
- * | Animation                        | Occurs                              |
- * |----------------------------------|-------------------------------------|
- * | {@link $animate#addClass addClass} `.ng-hide`  | after the `ngShow` expression evaluates to a non truthy value and just before the contents are set to hidden |
- * | {@link $animate#removeClass removeClass}  `.ng-hide`  | after the `ngShow` expression evaluates to a truthy value and just before contents are set to visible |
+ * | Animation                                           | Occurs                                                                                                        |
+ * |-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+ * | {@link $animate#addClass addClass} `.ng-hide`       | After the `ngShow` expression evaluates to a non truthy value and just before the contents are set to hidden. |
+ * | {@link $animate#removeClass removeClass} `.ng-hide` | After the `ngShow` expression evaluates to a truthy value and just before contents are set to visible.        |
  *
  * @element ANY
- * @param {expression} ngShow If the {@link guide/expression expression} is truthy
- *     then the element is shown or hidden respectively.
+ * @param {expression} ngShow If the {@link guide/expression expression} is truthy/falsy then the
+ *                            element is shown/hidden respectively.
  *
  * @example
-  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-show">
+ * A simple example, animating the element's opacity:
+ *
+  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-show-simple">
     <file name="index.html">
-      Click me: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
-      <div>
-        Show:
-        <div class="check-element animate-show" ng-show="checked">
-          <span class="glyphicon glyphicon-thumbs-up"></span> I show up when your checkbox is checked.
-        </div>
+      Show: <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />
+      <div class="check-element animate-show-hide" ng-show="checked">
+        I show up when your checkbox is checked.
       </div>
-      <div>
-        Hide:
-        <div class="check-element animate-show" ng-hide="checked">
-          <span class="glyphicon glyphicon-thumbs-down"></span> I hide when your checkbox is checked.
-        </div>
-      </div>
-    </file>
-    <file name="glyphicons.css">
-      @import url(../../components/bootstrap-3.1.1/css/bootstrap.css);
     </file>
     <file name="animations.css">
-      .animate-show {
-        line-height: 20px;
-        opacity: 1;
-        padding: 10px;
-        border: 1px solid black;
-        background: white;
+      .animate-show-hide.ng-hide {
+        opacity: 0;
       }
 
-      .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+      .animate-show-hide.ng-hide-add,
+      .animate-show-hide.ng-hide-remove {
         transition: all linear 0.5s;
       }
 
-      .animate-show.ng-hide {
-        line-height: 0;
-        opacity: 0;
-        padding: 0 10px;
-      }
-
       .check-element {
-        padding: 10px;
         border: 1px solid black;
-        background: white;
+        opacity: 1;
+        padding: 10px;
       }
     </file>
     <file name="protractor.js" type="protractor">
-      var thumbsUp = element(by.css('span.glyphicon-thumbs-up'));
-      var thumbsDown = element(by.css('span.glyphicon-thumbs-down'));
+      it('should check ngShow', function() {
+        var checkbox = element(by.model('checked'));
+        var checkElem = element(by.css('.check-element'));
 
-      it('should check ng-show / ng-hide', function() {
-        expect(thumbsUp.isDisplayed()).toBeFalsy();
-        expect(thumbsDown.isDisplayed()).toBeTruthy();
+        expect(checkElem.isDisplayed()).toBe(false);
+        checkbox.click();
+        expect(checkElem.isDisplayed()).toBe(true);
+      });
+    </file>
+  </example>
+ *
+ * <hr />
+ * @example
+ * A more complex example, featuring different show/hide animations:
+ *
+  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-show-complex">
+    <file name="index.html">
+      Show: <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />
+      <div class="check-element funky-show-hide" ng-show="checked">
+        I show up when your checkbox is checked.
+      </div>
+    </file>
+    <file name="animations.css">
+      body {
+        overflow: hidden;
+        perspective: 1000px;
+      }
 
-        element(by.model('checked')).click();
+      .funky-show-hide.ng-hide-add {
+        transform: rotateZ(0);
+        transform-origin: right;
+        transition: all 0.5s ease-in-out;
+      }
 
-        expect(thumbsUp.isDisplayed()).toBeTruthy();
-        expect(thumbsDown.isDisplayed()).toBeFalsy();
+      .funky-show-hide.ng-hide-add.ng-hide-add-active {
+        transform: rotateZ(-135deg);
+      }
+
+      .funky-show-hide.ng-hide-remove {
+        transform: rotateY(90deg);
+        transform-origin: left;
+        transition: all 0.5s ease;
+      }
+
+      .funky-show-hide.ng-hide-remove.ng-hide-remove-active {
+        transform: rotateY(0);
+      }
+
+      .check-element {
+        border: 1px solid black;
+        opacity: 1;
+        padding: 10px;
+      }
+    </file>
+    <file name="protractor.js" type="protractor">
+      it('should check ngShow', function() {
+        var checkbox = element(by.model('checked'));
+        var checkElem = element(by.css('.check-element'));
+
+        expect(checkElem.isDisplayed()).toBe(false);
+        checkbox.click();
+        expect(checkElem.isDisplayed()).toBe(true);
       });
     </file>
   </example>
@@ -40040,11 +40078,13 @@ var ngShowDirective = ['$animate', function($animate) {
  * @multiElement
  *
  * @description
- * The `ngHide` directive shows or hides the given HTML element based on the expression
- * provided to the `ngHide` attribute. The element is shown or hidden by removing or adding
- * the `ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
- * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
+ * The `ngHide` directive shows or hides the given HTML element based on the expression provided to
+ * the `ngHide` attribute.
+ *
+ * The element is shown or hidden by removing or adding the `.ng-hide` CSS class onto the element.
+ * The `.ng-hide` CSS class is predefined in AngularJS and sets the display style to none (using an
+ * `!important` flag). For CSP mode please add `angular-csp.css` to your HTML file (see
+ * {@link ng.directive:ngCsp ngCsp}).
  *
  * ```html
  * <!-- when $scope.myValue is truthy (element is hidden) -->
@@ -40054,30 +40094,32 @@ var ngShowDirective = ['$animate', function($animate) {
  * <div ng-hide="myValue"></div>
  * ```
  *
- * When the `ngHide` expression evaluates to a truthy value then the `.ng-hide` CSS class is added to the class
- * attribute on the element causing it to become hidden. When falsy, the `.ng-hide` CSS class is removed
- * from the element causing the element not to appear hidden.
+ * When the `ngHide` expression evaluates to a truthy value then the `.ng-hide` CSS class is added
+ * to the class attribute on the element causing it to become hidden. When falsy, the `.ng-hide`
+ * CSS class is removed from the element causing the element not to appear hidden.
  *
- * ## Why is !important used?
+ * ## Why is `!important` used?
  *
- * You may be wondering why !important is used for the `.ng-hide` CSS class. This is because the `.ng-hide` selector
- * can be easily overridden by heavier selectors. For example, something as simple
- * as changing the display style on a HTML list item would make hidden elements appear visible.
- * This also becomes a bigger issue when dealing with CSS frameworks.
+ * You may be wondering why `!important` is used for the `.ng-hide` CSS class. This is because the
+ * `.ng-hide` selector can be easily overridden by heavier selectors. For example, something as
+ * simple as changing the display style on a HTML list item would make hidden elements appear
+ * visible. This also becomes a bigger issue when dealing with CSS frameworks.
  *
- * By using !important, the show and hide behavior will work as expected despite any clash between CSS selector
- * specificity (when !important isn't used with any conflicting styles). If a developer chooses to override the
- * styling to change how to hide an element then it is just a matter of using !important in their own CSS code.
+ * By using `!important`, the show and hide behavior will work as expected despite any clash between
+ * CSS selector specificity (when `!important` isn't used with any conflicting styles). If a
+ * developer chooses to override the styling to change how to hide an element then it is just a
+ * matter of using `!important` in their own CSS code.
  *
  * ### Overriding `.ng-hide`
  *
- * By default, the `.ng-hide` class will style the element with `display: none!important`. If you wish to change
- * the hide behavior with ngShow/ngHide then this can be achieved by restating the styles for the `.ng-hide`
- * class in CSS:
+ * By default, the `.ng-hide` class will style the element with `display: none !important`. If you
+ * wish to change the hide behavior with `ngShow`/`ngHide`, you can simply overwrite the styles for
+ * the `.ng-hide` CSS class. Note that the selector that needs to be used is actually
+ * `.ng-hide:not(.ng-hide-animate)` to cope with extra animation classes that can be added.
  *
  * ```css
- * .ng-hide {
- *   /&#42; this is just another form of hiding an element &#42;/
+ * .ng-hide:not(.ng-hide-animate) {
+ *   /&#42; These are just alternative ways of hiding an element &#42;/
  *   display: block!important;
  *   position: absolute;
  *   top: -9999px;
@@ -40085,20 +40127,20 @@ var ngShowDirective = ['$animate', function($animate) {
  * }
  * ```
  *
- * By default you don't need to override in CSS anything and the animations will work around the display style.
+ * By default you don't need to override in CSS anything and the animations will work around the
+ * display style.
  *
  * ## A note about animations with `ngHide`
  *
- * Animations in ngShow/ngHide work with the show and hide events that are triggered when the directive expression
- * is true and false. This system works like the animation system present with ngClass, except that the `.ng-hide`
- * CSS class is added and removed for you instead of your own CSS class.
+ * Animations in `ngShow`/`ngHide` work with the show and hide events that are triggered when the
+ * directive expression is true and false. This system works like the animation system present with
+ * `ngClass` except that you must also include the `!important` flag to override the display
+ * property so that the elements are not actually hidden during the animation.
  *
  * ```css
- * //
- * //a working example can be found at the bottom of this page
- * //
+ * /&#42; A working example can be found at the bottom of this page. &#42;/
  * .my-element.ng-hide-add, .my-element.ng-hide-remove {
- *   transition: 0.5s linear all;
+ *   transition: all 0.5s linear;
  * }
  *
  * .my-element.ng-hide-add { ... }
@@ -40107,74 +40149,109 @@ var ngShowDirective = ['$animate', function($animate) {
  * .my-element.ng-hide-remove.ng-hide-remove-active { ... }
  * ```
  *
- * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display
- * property to block during animation states--ngAnimate will handle the style toggling automatically for you.
+ * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display property
+ * to block during animation states - ngAnimate will automatically handle the style toggling for you.
  *
  * @animations
- * | Animation                        | Occurs                              |
- * |----------------------------------|-------------------------------------|
- * | {@link $animate#addClass addClass} `.ng-hide`  | after the `ngHide` expression evaluates to a truthy value and just before the contents are set to hidden |
- * | {@link $animate#removeClass removeClass}  `.ng-hide`  | after the `ngHide` expression evaluates to a non truthy value and just before contents are set to visible |
+ * | Animation                                           | Occurs                                                                                                     |
+ * |-----------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+ * | {@link $animate#addClass addClass} `.ng-hide`       | After the `ngHide` expression evaluates to a truthy value and just before the contents are set to hidden.  |
+ * | {@link $animate#removeClass removeClass} `.ng-hide` | After the `ngHide` expression evaluates to a non truthy value and just before contents are set to visible. |
  *
  *
  * @element ANY
- * @param {expression} ngHide If the {@link guide/expression expression} is truthy then
- *     the element is shown or hidden respectively.
+ * @param {expression} ngHide If the {@link guide/expression expression} is truthy/falsy then the
+ *                            element is hidden/shown respectively.
  *
  * @example
-  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-hide">
+ * A simple example, animating the element's opacity:
+ *
+  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-hide-simple">
     <file name="index.html">
-      Click me: <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br/>
-      <div>
-        Show:
-        <div class="check-element animate-hide" ng-show="checked">
-          <span class="glyphicon glyphicon-thumbs-up"></span> I show up when your checkbox is checked.
-        </div>
+      Hide: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br />
+      <div class="check-element animate-show-hide" ng-hide="checked">
+        I hide when your checkbox is checked.
       </div>
-      <div>
-        Hide:
-        <div class="check-element animate-hide" ng-hide="checked">
-          <span class="glyphicon glyphicon-thumbs-down"></span> I hide when your checkbox is checked.
-        </div>
-      </div>
-    </file>
-    <file name="glyphicons.css">
-      @import url(../../components/bootstrap-3.1.1/css/bootstrap.css);
     </file>
     <file name="animations.css">
-      .animate-hide {
-        transition: all linear 0.5s;
-        line-height: 20px;
-        opacity: 1;
-        padding: 10px;
-        border: 1px solid black;
-        background: white;
+      .animate-show-hide.ng-hide {
+        opacity: 0;
       }
 
-      .animate-hide.ng-hide {
-        line-height: 0;
-        opacity: 0;
-        padding: 0 10px;
+      .animate-show-hide.ng-hide-add,
+      .animate-show-hide.ng-hide-remove {
+        transition: all linear 0.5s;
       }
 
       .check-element {
-        padding: 10px;
         border: 1px solid black;
-        background: white;
+        opacity: 1;
+        padding: 10px;
       }
     </file>
     <file name="protractor.js" type="protractor">
-      var thumbsUp = element(by.css('span.glyphicon-thumbs-up'));
-      var thumbsDown = element(by.css('span.glyphicon-thumbs-down'));
+      it('should check ngHide', function() {
+        var checkbox = element(by.model('checked'));
+        var checkElem = element(by.css('.check-element'));
 
-      it('should check ng-show / ng-hide', function() {
-        expect(thumbsUp.isDisplayed()).toBeFalsy();
-        expect(thumbsDown.isDisplayed()).toBeTruthy();
+        expect(checkElem.isDisplayed()).toBe(true);
+        checkbox.click();
+        expect(checkElem.isDisplayed()).toBe(false);
+      });
+    </file>
+  </example>
+ *
+ * <hr />
+ * @example
+ * A more complex example, featuring different show/hide animations:
+ *
+  <example module="ngAnimate" deps="angular-animate.js" animations="true" name="ng-hide-complex">
+    <file name="index.html">
+      Hide: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br />
+      <div class="check-element funky-show-hide" ng-hide="checked">
+        I hide when your checkbox is checked.
+      </div>
+    </file>
+    <file name="animations.css">
+      body {
+        overflow: hidden;
+        perspective: 1000px;
+      }
 
-        element(by.model('checked')).click();
+      .funky-show-hide.ng-hide-add {
+        transform: rotateZ(0);
+        transform-origin: right;
+        transition: all 0.5s ease-in-out;
+      }
 
-        expect(thumbsUp.isDisplayed()).toBeTruthy();
-        expect(thumbsDown.isDisplayed()).toBeFalsy();
+      .funky-show-hide.ng-hide-add.ng-hide-add-active {
+        transform: rotateZ(-135deg);
+      }
+
+      .funky-show-hide.ng-hide-remove {
+        transform: rotateY(90deg);
+        transform-origin: left;
+        transition: all 0.5s ease;
+      }
+
+      .funky-show-hide.ng-hide-remove.ng-hide-remove-active {
+        transform: rotateY(0);
+      }
+
+      .check-element {
+        border: 1px solid black;
+        opacity: 1;
+        padding: 10px;
+      }
+    </file>
+    <file name="protractor.js" type="protractor">
+      it('should check ngHide', function() {
+        var checkbox = element(by.model('checked'));
+        var checkElem = element(by.css('.check-element'));
+
+        expect(checkElem.isDisplayed()).toBe(true);
+        checkbox.click();
+        expect(checkElem.isDisplayed()).toBe(false);
       });
     </file>
   </example>
@@ -41754,8 +41831,8 @@ $provide.value("$locale", {
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -45907,8 +45984,8 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -46238,8 +46315,8 @@ angular.module('ngCookies').provider('$$cookieWriter', /** @this */ function $$C
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.6.1
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -46986,8 +47063,8 @@ makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -47726,8 +47803,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -48466,8 +48543,8 @@ function ngMessageDirectiveFactory() {
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -48874,8 +48951,8 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
 })(window, window.angular);
 
 /**
- * @license AngularJS v1.5.10
- * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.11
+ * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular) {'use strict';
@@ -49550,6 +49627,7 @@ angular.module('ngResource', ['ng']).
           var data = extend({}, this);
           delete data.$promise;
           delete data.$resolved;
+          delete data.$cancelRequest;
           return data;
         };
 
@@ -65476,7 +65554,7 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating
  * @author Alex_Crack
- * @version v0.3.5
+ * @version v0.3.6
  * @link https://github.com/alexcrack/angular-ui-notification
  * @license MIT
  */
@@ -65497,7 +65575,8 @@ angular.module('ui-notification').provider('Notification', function() {
         onClose: undefined,
         closeOnClick: true,
         maxCount: 0, // 0 - Infinite
-        container: 'body'
+        container: 'body',
+        priority: 10
     };
 
     this.setOptions = function(options) {
@@ -65534,6 +65613,7 @@ angular.module('ui-notification').provider('Notification', function() {
             args.onClose = args.onClose ? args.onClose : options.onClose;
             args.closeOnClick = (args.closeOnClick !== null && args.closeOnClick !== undefined) ? args.closeOnClick : options.closeOnClick;
             args.container = args.container ? args.container : options.container;
+            args.priority = args.priority ? args.priority : options.priority;
             
             var template=$templateCache.get(args.template);
 
@@ -65543,7 +65623,9 @@ angular.module('ui-notification').provider('Notification', function() {
                 // load it via $http only if it isn't default template and template isn't exist in template cache
                 // cache:true means cache it for later access.
                 $http.get(args.template,{cache: true})
-                  .then(processNotificationTemplate)
+                  .then(function(response){
+                    processNotificationTemplate(response.data);
+                  })
                   .catch(function(data){
                     throw new Error('Template ('+args.template+') could not be loaded. ' + data);
                   });                
@@ -65559,12 +65641,27 @@ angular.module('ui-notification').provider('Notification', function() {
                 scope.delay = args.delay;
                 scope.onClose = args.onClose;
 
+                var priorityCompareTop = function(a, b) {
+                    return a._priority - b._priority;
+                };
+
+                var priorityCompareBtm = function(a, b) {
+                    return b._priority - a._priority;
+                };
+
                 var reposite = function() {
                     var j = 0;
                     var k = 0;
                     var lastTop = startTop;
                     var lastRight = startRight;
                     var lastPosition = [];
+
+                    if( args.positionY === 'top' ) {
+                        messageElements.sort( priorityCompareTop );
+                    } else if( args.positionY === 'bottom' ) {
+                        messageElements.sort( priorityCompareBtm );
+                    }
+
                     for(var i = messageElements.length - 1; i >= 0; i --) {
                         var element  = messageElements[i];
                         if (args.replaceMessage && i < messageElements.length - 1) {
@@ -65604,6 +65701,7 @@ angular.module('ui-notification').provider('Notification', function() {
                 var templateElement = $compile(template)(scope);
                 templateElement._positionY = args.positionY;
                 templateElement._positionX = args.positionX;
+                templateElement._priority = args.priority;
                 templateElement.addClass(args.type);
 
                 var closeEvent = function(e) {
@@ -68361,7 +68459,7 @@ if (typeof define === 'function' && define.amd) {
 
  (function(){
 	'use strict';
-	
+
 	// Key codes
 	var keys = {
 		enter : 13,
@@ -68374,23 +68472,157 @@ if (typeof define === 'function' && define.amd) {
 	.module('thatisuday.ng-image-gallery', ['ngAnimate'])
 	.provider('ngImageGalleryOpts', function(){
 		var defOpts = {
-			thumbnails  :   true,   
-			inline      :   false,
-			bubbles     :   true,
-			imgBubbles  :   false,   
-			bgClose     :   false,
-			imgAnim 	: 	'fadeup',
+			thumbnails  	:   true,
+			thumbSize		: 	80,
+			inline      	:   false,
+			bubbles     	:   true,
+			bubbleSize		: 	20,
+			imgBubbles  	:   false,
+			bgClose     	:   false,
+			piracy 			: 	false,
+			imgAnim 		: 	'fadeup',
+			errorPlaceHolder:   'Error when loading the image!'
 		};
 
 		return{
 			setOpts : function(newOpts){
-				angular.extend(defOpts, newOpts); 
+				angular.extend(defOpts, newOpts);
 			},
 			$get : function(){
 				return defOpts;
 			}
 		}
 	})
+	.filter('ngImageGalleryTrust', ['$sce', function($sce) {
+      return function(value, type) {
+        // Defaults to treating trusted value as `html`
+        return $sce.trustAs(type || 'html', value);
+      }
+    }])
+    .directive('ngRightClick', ['$parse', function($parse){
+	    return {
+	    	restrict: "A",
+			scope : false,
+			link : function(scope, element, attrs){
+				element.bind('contextmenu', function(event){
+					if(scope.piracy == false){
+						event.preventDefault();
+						return scope.piracy;
+					}
+				});
+			}
+	    };
+	}])
+	.directive("showImageAsync", [function(){
+		return {
+			restrict: "A",
+			scope: false,
+			link: function (scope, element, attributes){
+				var image = new Image();
+				image.src = attributes.showImageAsync;
+				image.onload = function(){
+					scope.$apply(function(){
+						if(attributes.asyncKind == 'thumb'){
+							element.css({ backgroundImage: 'url("' + attributes.showImageAsync + '")' });
+							element.empty(); // remove loading animation element
+						}
+						else if(attributes.asyncKind == 'bubble'){
+							element.css({ backgroundImage: 'url("' + attributes.showImageAsync + '")' });
+						}
+					});
+				};
+				image.onerror = function(){
+					element.empty(); // remove loading animation element
+				}
+			}
+		};
+	}])
+	.directive("bubbleAutoFit", ['$window', '$timeout', function($window, $timeout){
+		return {
+			restrict: "A",
+			scope: false,
+			link: {
+				pre : function (scope, element, attributes){
+					var autoFitBubbles = function(){
+						var scrollerWidth = element[0].getBoundingClientRect().width;
+						if(scrollerWidth == 0) return;
+
+						var bubbleSize = scope.bubbleSize;
+						var minMargin = 4 + 4; // left+right
+						var bubbleSpace = (bubbleSize + minMargin);
+						var rawQuotient = scrollerWidth / bubbleSpace;
+						var bubblesInView = Math.floor(rawQuotient);
+						var extraSpace = scrollerWidth - (bubblesInView * bubbleSpace);
+						var extraMargin = extraSpace / bubblesInView;
+						var bubbleMargin = minMargin + extraMargin;
+						var finalBubbleSpace = bubbleMargin + bubbleSize;
+
+						scope._bubblesInView = bubblesInView;
+						scope._finalBubbleSpace = finalBubbleSpace;
+						scope._bubbleMargin = '0 ' + (bubbleMargin/2) + 'px';
+
+						scope._safeApply(angular.noop);
+					};
+
+					$timeout(autoFitBubbles);
+
+					angular.element($window).bind('resize', function(){
+						$timeout(autoFitBubbles);
+					});
+					scope.$watch('inline', function(){
+						$timeout(autoFitBubbles);
+					});
+					scope.$watch('bubbleSize', function(){
+						$timeout(autoFitBubbles);
+					});
+					scope.$watchCollection('images', function(){
+						$timeout(autoFitBubbles);
+					});
+				}
+			}
+		};
+	}])
+	.directive("bubbleAutoScroll", ['$window', '$timeout', function($window, $timeout){
+		return {
+			restrict: "A",
+			scope: false,
+			link: function (scope, element, attributes){
+
+				var indexCalc = function(){
+					var relativeIndexToBubbleWrapper = scope._bubblesInView - (scope._bubblesInView - scope._activeImageIndex);
+
+					$timeout(function(){
+						if(relativeIndexToBubbleWrapper > scope._bubblesInView - 2){
+							var outBubbles = ((scope._activeImageIndex+1) - scope._bubblesInView) + 1;
+
+							if(scope._activeImageIndex != (scope.images.length - 1)){
+								scope._bubblesContainerMarginLeft = '-' + (scope._finalBubbleSpace * outBubbles) + 'px';
+							}
+							else{
+								scope._bubblesContainerMarginLeft = '-' + (scope._finalBubbleSpace * (outBubbles - 1)) + 'px';
+							}
+						}
+						else{
+							scope._bubblesContainerMarginLeft = '0px';
+						}
+					});
+				}
+
+				angular.element($window).bind('resize', function(){
+					$timeout(indexCalc);
+				});
+				scope.$watch('_bubblesInView', function(){
+					$timeout(indexCalc);
+				});
+				scope.$watch('_activeImageIndex', function(){
+					$timeout(indexCalc);
+				});
+				scope.$watchCollection('images', function(){
+					$timeout(indexCalc);
+				});
+			}
+		};
+	}])
 	.directive('ngImageGallery', ['$rootScope', '$timeout', '$q', 'ngImageGalleryOpts',
 	function($rootScope, $timeout, $q, ngImageGalleryOpts){
 		return {
@@ -68403,39 +68635,52 @@ if (typeof define === 'function' && define.amd) {
 				conf 			: 	'=?',		// {}
 
 				thumbnails 		: 	'=?',		// true|false
-				inline 			: 	'=?',		// true|flase
-				bubbles 		: 	'=?',		// true|flase
-				imgBubbles 		: 	'=?',		// true|flase
-				bgClose 		: 	'=?',		// true|flase
+				thumbSize		: 	'=?', 		// px
+				inline 			: 	'=?',		// true|false
+				bubbles 		: 	'=?',		// true|false
+				bubbleSize 		: 	'=?',		// px
+				imgBubbles 		: 	'=?',		// true|false
+				bgClose 		: 	'=?',		// true|false
+				piracy			: 	'=?',		// true|false
 				imgAnim 		: 	'@?',		// {name}
+				errorPlaceHolder: 	'@?',		// {name}
 
 				onOpen 			: 	'&?',		// function
-				onClose 		: 	'&?'		// function
+				onClose 		: 	'&?',		// function,
+				onDelete		: 	'&?'
 			},
-			template : 	'<div class="ng-image-gallery img-move-dir-{{imgMoveDirection}}" ng-class="{inline:inline}">'+
-							
+			template : 	'<div class="ng-image-gallery img-move-dir-{{_imgMoveDirection}}" ng-class="{inline:inline}" ng-hide="images.length == 0">'+
+
 							// Thumbnails container
 							//  Hide for inline gallery
-							'<div ng-if="thumbnails && !inline" class="ng-image-gallery-thumbnails">'+
-								'<div class="thumb" ng-repeat="image in images" ng-click="methods.open($index);" ng-style="{ \'background-image\': \'url(\' + (image.thumbUrl || image.url) + \')\' }"  ng-attr-title="{{image.title || undefined}}"></div>'+
-							'</div>'+
+							'<div ng-if="thumbnails && !inline" class="ng-image-gallery-thumbnails">' +
+ 								'<div class="thumb" ng-repeat="image in images track by image.id" ng-click="methods.open($index);" show-image-async="{{image.thumbUrl || image.url}}" async-kind="thumb" ng-style="{\'width\' : thumbSize+\'px\', \'height\' : thumbSize+\'px\'}">'+
+ 									'<div class="loader"></div>'+
+ 								'</div>' +
+ 							'</div>' +
 
 							// Modal container
 							// (inline container for inline modal)
-							'<div class="ng-image-gallery-modal" ng-show="opened" ng-cloak>' +
-								
+							'<div class="ng-image-gallery-modal" ng-if="opened" ng-cloak>' +
+
 								// Gallery backdrop container
 								// (hide for inline gallery)
 								'<div class="ng-image-gallery-backdrop" ng-if="!inline"></div>'+
-								
+
 								// Gallery contents container
 								// (hide when image is loading)
 								'<div class="ng-image-gallery-content" ng-show="!imgLoading" ng-click="backgroundClose($event);">'+
-									
-									// destroy icons container
-									'<div class="destroy-icons-container">'+
+
+									// actions icons container
+									'<div class="actions-icons-container">'+
+										// Delete image icon
+										'<div class="delete-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.deletable" title="Delete this image..." ng-click="_deleteImg(image)"></div>'+
+									'</div>'+
+
+									// control icons container
+									'<div class="control-icons-container">'+
 										// External link icon
-										'<a class="ext-url" ng-repeat="image in images" ng-if="activeImg == image && image.extUrl" href="{{image.extUrl}}"></a>'+
+										'<a class="ext-url" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.extUrl" href="{{image.extUrl}}" target="_blank" title="Open image in new tab..."></a>'+
 
 										// Close Icon (hidden in inline gallery)
 										'<div class="close" ng-click="methods.close();" ng-if="!inline"></div>'+
@@ -68448,26 +68693,38 @@ if (typeof define === 'function' && define.amd) {
 
 									// Galleria container
 									'<div class="galleria">'+
-										
+
 										// Images container
-										'<div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{imgMoveDirection}}">'+
-											'<img class="galleria-image" ng-repeat="image in images" ng-if="activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" oncontextmenu="return false;" ng-attr-title="{{image.title || undefined}}" ng-attr-alt="{{image.alt || undefined}}"/>'+
+										'<div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{_imgMoveDirection}}">'+
+											'<img class="galleria-image" ng-right-click ng-repeat="image in images track by image.id" ng-if="_activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"/>'+
+										'</div>'+
+
+										// Image description container
+										'<div class="galleria-title-description-wrapper">'+
+											'<div ng-repeat="image in images track by image.id" ng-if="(image.title || image.desc) && (_activeImg == image)">'+
+												'<div class="title" ng-if="image.title" ng-bind-html="image.title | ngImageGalleryTrust"></div>'+
+												'<div class="desc" ng-if="image.desc" ng-bind-html="image.desc | ngImageGalleryTrust"></div>'+
+											'</div>'+
 										'</div>'+
 
 										// Bubble navigation container
-										'<div class="galleria-bubbles" ng-if="bubbles && !imgBubbles"  ng-hide="images.length == 1">'+
-											'<span class="galleria-bubble" ng-click="setActiveImg(image);" ng-repeat="image in images" ng-class="{active : (activeImg == image)}"></span>'+
+										'<div class="galleria-bubbles-wrapper" ng-if="bubbles && !imgBubbles" ng-hide="images.length == 1" ng-style="{\'height\' : bubbleSize+\'px\'}" bubble-auto-fit>'+
+											'<div class="galleria-bubbles" bubble-auto-scroll ng-style="{\'margin-left\': _bubblesContainerMarginLeft}">'+
+												'<span class="galleria-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" ng-style="{\'width\' : bubbleSize+\'px\', \'height\' : bubbleSize+\'px\', margin: _bubbleMargin}"></span>'+
+											'</div>'+
 										'</div>'+
 
 										// Image bubble navigation container
-										'<div class="galleria-bubbles" ng-if="bubbles && imgBubbles" ng-hide="images.length == 1">'+
-											'<span class="galleria-bubble img-bubble" ng-click="setActiveImg(image);" ng-repeat="image in images" ng-class="{active : (activeImg == image)}" ng-style="{ \'background-image\': \'url(\' + (image.bubbleUrl || image.thumbUrl || image.url) +\')\' }"></span>'+
+										'<div class="galleria-bubbles-wrapper" ng-if="bubbles && imgBubbles" ng-hide="images.length == 1" ng-style="{\'height\' : bubbleSize+\'px\'}" bubble-auto-fit>'+
+											'<div class="galleria-bubbles" bubble-auto-scroll ng-style="{\'margin-left\': _bubblesContainerMarginLeft}">'+
+												'<span class="galleria-bubble img-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" show-image-async="{{image.bubbleUrl || image.thumbUrl || image.url}}" async-kind="bubble" ng-style="{\'width\' : bubbleSize+\'px\', \'height\' : bubbleSize+\'px\', \'border-width\' : bubbleSize/10+\'px\', margin: _bubbleMargin}"></span>'+
+											'</div>'+
 										'</div>'+
 
 									'</div>'+
 
 								'</div>'+
-								
+
 								// Loading animation overlay container
 								// (show when image is loading)
 								'<div class="ng-image-gallery-loader" ng-show="imgLoading">'+
@@ -68479,284 +68736,332 @@ if (typeof define === 'function' && define.amd) {
 										'<div class="rect5"></div>'+
 									'</div>'+
 								'</div>'+
+
+								// (show when image cannot be loaded)
+								'<div class="ng-image-gallery-errorplaceholder" ng-show="imgError">'+
+									'<div class="ng-image-gallery-error-placeholder" ng-bind-html="errorPlaceHolder | ngImageGalleryTrust"></div>'+
+								'</div>'+
 							'</div>'+
 						'</div>',
-						
-			link : function(scope, elem, attr){
-				
-				/*
-				 *	Operational functions
-				**/
 
-				// Show gallery loader
-				scope.showLoader = function(){
-					scope.imgLoading = true;
-				}
+			link : {
+				pre : function(scope, elem, attr){
 
-				// Hide gallery loader
-				scope.hideLoader = function(){
-					scope.imgLoading = false;
-				}
+					/*
+					 *	Operational functions
+					**/
 
-				// Image load complete promise
-				scope.loadImg = function(imgObj){
-					
-					// Return rejected promise
-					// if not image object received
-					if(!imgObj) return $q.reject();
-
-					var deferred =  $q.defer();
-
-					// Show loder
-					if(!imgObj.hasOwnProperty('cached')) scope.showLoader();
-
-					// Process image
-					var img = new Image();
-					img.src = imgObj.url;
-					img.onload = function(){
-						// Hide loder
-						if(!imgObj.hasOwnProperty('cached')) scope.hideLoader();
-
-						// Cache image
-						if(!imgObj.hasOwnProperty('cached')) imgObj.cached = true;
-
-						return deferred.resolve(imgObj);
+					// Show gallery loader
+					scope._showLoader = function(){
+						scope.imgLoading = true;
 					}
 
-					return deferred.promise;
-				}
-
-				scope.setActiveImg = function(imgObj){
-					// Get images move direction
-					if(
-						scope.images.indexOf(scope.activeImg) - scope.images.indexOf(imgObj) == (scope.images.length - 1) ||
-						(
-							scope.images.indexOf(scope.activeImg) - scope.images.indexOf(imgObj) <= 0 && 
-							scope.images.indexOf(scope.activeImg) - scope.images.indexOf(imgObj) != -(scope.images.length - 1)
-						)
-						
-					){
-						scope.imgMoveDirection = 'forward';
-					}
-					else{
-						scope.imgMoveDirection = 'backward';
+					// Hide gallery loader
+					scope._hideLoader = function(){
+						scope.imgLoading = false;
 					}
 
-					// Load image
-					scope.loadImg(imgObj).then(function(imgObj){
-						scope.activeImg = imgObj;
-					});
-				}
+					// Image load complete promise
+					scope._loadImg = function(imgObj){
 
+						// Return rejected promise
+						// if not image object received
+						if(!imgObj) return $q.reject();
 
-				/***************************************************/
-				
+						var deferred =  $q.defer();
 
-				/*
-				 *	Gallery settings
-				**/
+						// Show loder
+						if(!imgObj.hasOwnProperty('cached')) scope._showLoader();
 
-				// Modify scope models
-				scope.images 	 	 = 	(scope.images 		!= undefined) ? scope.images 	 : 	[];
-				scope.methods 	 	 = 	(scope.methods 		!= undefined) ? scope.methods 	 : 	{};
-				scope.conf 	 		 = 	(scope.conf 		!= undefined) ? scope.conf 		 : 	{};
+						// Process image
+						var img = new Image();
+						img.src = imgObj.url;
+						img.onload = function(){
+							// Hide loder
+							if(!imgObj.hasOwnProperty('cached')) scope._hideLoader();
 
-				// setting options
-				scope.$watchCollection('conf', function(conf){
-					scope.thumbnails 	 = 	(conf.thumbnails 	!= undefined) ? conf.thumbnails 	: 	(scope.thumbnails 	!= undefined) 	?  scope.thumbnails		: 	ngImageGalleryOpts.thumbnails;
-					scope.inline 	 	 = 	(conf.inline 		!= undefined) ? conf.inline 	 	: 	(scope.inline 		!= undefined) 	?  scope.inline			: 	ngImageGalleryOpts.inline;
-					scope.bubbles 	 	 = 	(conf.bubbles 		!= undefined) ? conf.bubbles 	 	: 	(scope.bubbles 		!= undefined) 	?  scope.bubbles		: 	ngImageGalleryOpts.bubbles;
-					scope.imgBubbles 	 = 	(conf.imgBubbles 	!= undefined) ? conf.imgBubbles 	: 	(scope.imgBubbles 	!= undefined) 	?  scope.imgBubbles		: 	ngImageGalleryOpts.imgBubbles;
-					scope.bgClose 	 	 = 	(conf.bgClose 		!= undefined) ? conf.bgClose 	 	: 	(scope.bgClose 		!= undefined) 	?  scope.bgClose		: 	ngImageGalleryOpts.bgClose;
-					scope.imgAnim 	 	 = 	(conf.imgAnim 		!= undefined) ? conf.imgAnim 	 	: 	(scope.imgAnim 		!= undefined) 	?  scope.imgAnim		: 	ngImageGalleryOpts.imgAnim;
-				});
+							// Cache image
+							if(!imgObj.hasOwnProperty('cached')) imgObj.cached = true;
 
-				scope.onOpen 	 	 = 	(scope.onOpen 		!= undefined) ? scope.onOpen 	 : 	angular.noop;
-				scope.onClose 	 	 = 	(scope.onClose 		!= undefined) ? scope.onClose 	 : 	angular.noop;
-				
-				// If images populate dynamically, reset gallery
-				var imagesFirstWatch = true;
-				scope.$watch('images', function(){
-					if(imagesFirstWatch){
-						imagesFirstWatch = false;
+							deferred.resolve(imgObj);
+						}
+						img.onerror = function(){
+							if(!imgObj.hasOwnProperty('cached')) scope._hideLoader();
+
+							deferred.reject('Error when loading img');
+						}
+
+						return deferred.promise;
 					}
-					else if(scope.images.length) scope.setActiveImg(
-						scope.images[scope.activeImageIndex || 0]
-					);
-				});
 
-				// Watch index of visible/active image
-				// If index changes, make sure to load/change image
-				var activeImageIndexFirstWatch = true;
-				scope.$watch('activeImageIndex', function(newImgIndex){
-					if(activeImageIndexFirstWatch){
-						activeImageIndexFirstWatch = false;
-					}
-					else if(scope.images.length){
-						scope.setActiveImg(
-							scope.images[newImgIndex]
-						);
-					}
-				});
+					scope._setActiveImg = function(imgObj){
+						// Get images move direction
+						if(
+							scope.images.indexOf(scope._activeImg) - scope.images.indexOf(imgObj) == (scope.images.length - 1) ||
+							(
+								scope.images.indexOf(scope._activeImg) - scope.images.indexOf(imgObj) <= 0 &&
+								scope.images.indexOf(scope._activeImg) - scope.images.indexOf(imgObj) != -(scope.images.length - 1)
+							)
 
-				// Open modal automatically if inline
-				scope.$watch('inline', function(){
-					$timeout(function(){
-						if(scope.inline) scope.methods.open();
-					});
-				});
-				
-
-				/***************************************************/
-
-
-				/*
-				 *	Methods
-				**/
-
-				// Open gallery modal
-				scope.methods.open = function(imgIndex){
-					// Open modal from an index if one passed
-					scope.activeImageIndex = (imgIndex) ? imgIndex : 0;
-
-					scope.opened = true;
-
-					// set overflow hidden to body
-					if(!scope.inline) angular.element(document.body).addClass('body-overflow-hidden');
-
-					// call open event after transition
-					$timeout(function(){
-						scope.onOpen();
-					}, 300);
-				}
-
-				// Close gallery modal
-				scope.methods.close = function(){
-					scope.opened = false; // Model closed
-
-					// set overflow hidden to body
-					angular.element(document.body).removeClass('body-overflow-hidden');
-
-					// call close event after transition
-					$timeout(function(){
-						scope.onClose();
-						scope.activeImageIndex = 0; // Reset index
-					}, 300);
-				}
-
-				// Change image to next
-				scope.methods.next = function(){
-					if(scope.activeImageIndex == (scope.images.length - 1)){
-						scope.activeImageIndex = 0;
-					}
-					else{
-						scope.activeImageIndex = scope.activeImageIndex + 1;
-					}
-				}
-
-				// Change image to prev
-				scope.methods.prev = function(){
-					if(scope.activeImageIndex == 0){
-						scope.activeImageIndex = scope.images.length - 1;
-					}
-					else{
-						scope.activeImageIndex--;
-					}
-				}
-
-				// Close gallery on background click
-				scope.backgroundClose = function(e){
-					if(!scope.bgClose || scope.inline) return;
-
-					var noCloseClasses = [
-						'galleria-image',
-						'destroy-icons-container',
-						'ext-url',
-						'close',
-						'next',
-						'prev',
-						'galleria-bubble'
-					];
-
-					// check if clicked element has a class that
-					// belongs to `noCloseClasses`
-					for(var i = 0; i < e.target.classList.length; i++){
-						if(noCloseClasses.indexOf(e.target.classList[i]) != -1){
-							break;
+						){
+							scope._imgMoveDirection = 'forward';
 						}
 						else{
-							scope.methods.close();
+							scope._imgMoveDirection = 'backward';
+						}
+
+						// Load image
+						scope._loadImg(imgObj).then(function(imgObj){
+							scope._activeImg = imgObj;
+							scope._activeImageIndex = scope.images.indexOf(imgObj);
+							scope.imgError = false;
+						}, function(){
+							scope._activeImg = null;
+							scope._activeImageIndex = scope.images.indexOf(imgObj);
+							scope.imgError = true;
+						})
+						;
+					}
+
+					scope._safeApply = function(fn){
+						var phase = this.$root.$$phase;
+						if(phase == '$apply' || phase == '$digest'){
+							if(fn && (typeof(fn) === 'function')){
+								fn();
+							}
+						}else{
+							this.$apply(fn);
+						}
+					};
+
+					scope._deleteImg = function(img){
+						var _deleteImgCallback = function(){
+							var index = scope.images.indexOf(img);
+							console.log(index);
+							scope.images.splice(index, 1);
+							scope._activeImageIndex = 0;
+
+							/**/
+						}
+
+						scope.onDelete({img: img, cb: _deleteImgCallback});
+					}
+
+
+					/***************************************************/
+
+
+					/*
+					 *	Gallery settings
+					**/
+
+					// Modify scope models
+					scope.images 	 	 = 	(scope.images 		!= undefined) ? scope.images 	 : 	[];
+					scope.methods 	 	 = 	(scope.methods 		!= undefined) ? scope.methods 	 : 	{};
+					scope.conf 	 		 = 	(scope.conf 		!= undefined) ? scope.conf 		 : 	{};
+
+					// setting options
+					scope.$watchCollection('conf', function(conf){
+						scope.thumbnails 	 = 	(conf.thumbnails 	!= undefined) ? conf.thumbnails 	: 	(scope.thumbnails 	!= undefined) 	?  scope.thumbnails		: 	ngImageGalleryOpts.thumbnails;
+						scope.thumbSize 	 = 	(conf.thumbSize 	!= undefined) ? conf.thumbSize 		: 	(scope.thumbSize 	!= undefined) 	?  scope.thumbSize		: 	ngImageGalleryOpts.thumbSize;
+						scope.inline 	 	 = 	(conf.inline 		!= undefined) ? conf.inline 	 	: 	(scope.inline 		!= undefined) 	?  scope.inline			: 	ngImageGalleryOpts.inline;
+						scope.bubbles 	 	 = 	(conf.bubbles 		!= undefined) ? conf.bubbles 	 	: 	(scope.bubbles 		!= undefined) 	?  scope.bubbles		: 	ngImageGalleryOpts.bubbles;
+						scope.bubbleSize 	 = 	(conf.bubbleSize 	!= undefined) ? conf.bubbleSize 	 : 	(scope.bubbleSize 	!= undefined) 	?  scope.bubbleSize		: 	ngImageGalleryOpts.bubbleSize;
+						scope.imgBubbles 	 = 	(conf.imgBubbles 	!= undefined) ? conf.imgBubbles 	: 	(scope.imgBubbles 	!= undefined) 	?  scope.imgBubbles		: 	ngImageGalleryOpts.imgBubbles;
+						scope.bgClose 	 	 = 	(conf.bgClose 		!= undefined) ? conf.bgClose 	 	: 	(scope.bgClose 		!= undefined) 	?  scope.bgClose		: 	ngImageGalleryOpts.bgClose;
+						scope.piracy 	 	 = 	(conf.piracy 		!= undefined) ? conf.piracy 	 	: 	(scope.piracy 		!= undefined) 	?  scope.piracy			: 	ngImageGalleryOpts.piracy;
+						scope.imgAnim 	 	 = 	(conf.imgAnim 		!= undefined) ? conf.imgAnim 	 	: 	(scope.imgAnim 		!= undefined) 	?  scope.imgAnim		: 	ngImageGalleryOpts.imgAnim;
+						scope.errorPlaceHolder = (conf.errorPlaceHolder != undefined) ? conf.errorPlaceHolder : (scope.errorPlaceHolder != undefined) ? scope.errorPlaceHolder : ngImageGalleryOpts.errorPlaceHolder;
+					});
+
+					scope.onOpen 	 = 	(scope.onOpen 	!= undefined) ? scope.onOpen 	 : 	angular.noop;
+					scope.onClose 	 = 	(scope.onClose 	!= undefined) ? scope.onClose 	 : 	angular.noop;
+					scope.onDelete 	 = 	(scope.onDelete != undefined) ? scope.onDelete 	 : 	angular.noop;
+
+					// If images populate dynamically, reset gallery
+					var imagesFirstWatch = true;
+					scope.$watchCollection('images', function(){
+						if(imagesFirstWatch){
+							imagesFirstWatch = false;
+						}
+						else if(scope.images.length){
+							scope._setActiveImg(scope.images[scope._activeImageIndex || 0]);
+						}
+					});
+
+					// Watch index of visible/active image
+					// If index changes, make sure to load/change image
+					var activeImageIndexFirstWatch = true;
+					scope.$watch('_activeImageIndex', function(newImgIndex){
+						if(activeImageIndexFirstWatch){
+							activeImageIndexFirstWatch = false;
+						}
+						else if(scope.images.length){
+							scope._setActiveImg(
+								scope.images[newImgIndex]
+							);
+						}
+					});
+
+					// Open modal automatically if inline
+					scope.$watch('inline', function(){
+						$timeout(function(){
+							if(scope.inline) scope.methods.open();
+						});
+					});
+
+
+					/***************************************************/
+
+
+					/*
+					 *	Methods
+					**/
+
+					// Open gallery modal
+					scope.methods.open = function(imgIndex){
+						// Open modal from an index if one passed
+						scope._activeImageIndex = (imgIndex) ? imgIndex : 0;
+
+						scope.opened = true;
+
+						// set overflow hidden to body
+						if(!scope.inline) angular.element(document.body).addClass('body-overflow-hidden');
+
+						// call open event after transition
+						$timeout(function(){
+							scope.onOpen();
+						}, 300);
+					}
+
+					// Close gallery modal
+					scope.methods.close = function(){
+						scope.opened = false; // Model closed
+
+						// set overflow hidden to body
+						angular.element(document.body).removeClass('body-overflow-hidden');
+
+						// call close event after transition
+						$timeout(function(){
+							scope.onClose();
+							scope._activeImageIndex = 0; // Reset index
+						}, 300);
+					}
+
+					// Change image to next
+					scope.methods.next = function(){
+						if(scope._activeImageIndex == (scope.images.length - 1)){
+							scope._activeImageIndex = 0;
+						}
+						else{
+							scope._activeImageIndex = scope._activeImageIndex + 1;
 						}
 					}
-				}
 
-
-				/***************************************************/
-
-
-				/*
-				 *	User interactions
-				**/
-
-				// Key events
-				angular.element(document).bind('keyup', function(event){
-					// If inline modal, do not interact
-					if(scope.inline) return;
-
-					if(event.which == keys.right || event.which == keys.enter){
-						$timeout(function(){
-							scope.methods.next();
-						});
+					// Change image to prev
+					scope.methods.prev = function(){
+						if(scope._activeImageIndex == 0){
+							scope._activeImageIndex = scope.images.length - 1;
+						}
+						else{
+							scope._activeImageIndex--;
+						}
 					}
-					else if(event.which == keys.left){
-						$timeout(function(){
-							scope.methods.prev();
-						});
-					}
-					else if(event.which == keys.esc){
-						$timeout(function(){
-							scope.methods.close();
-						});
-					}
-				});
 
-				// Swipe events
-				if(window.Hammer){
-					var hammerElem = new Hammer(elem[0]);
-					hammerElem.on('swiperight', function(ev){
-						$timeout(function(){
-							scope.methods.prev();
-						});
-					});
-					hammerElem.on('swipeleft', function(ev){
-						$timeout(function(){
-							scope.methods.next();
-						});
-					});
-					hammerElem.on('doubletap', function(ev){
+					// Close gallery on background click
+					scope.backgroundClose = function(e){
+						if(!scope.bgClose || scope.inline) return;
+
+						var noCloseClasses = [
+							'galleria-image',
+							'destroy-icons-container',
+							'ext-url',
+							'close',
+							'next',
+							'prev',
+							'galleria-bubble'
+						];
+
+						// check if clicked element has a class that
+						// belongs to `noCloseClasses`
+						for(var i = 0; i < e.target.classList.length; i++){
+							if(noCloseClasses.indexOf(e.target.classList[i]) != -1){
+								break;
+							}
+							else{
+								scope.methods.close();
+							}
+						}
+					}
+
+
+					/***************************************************/
+
+
+					/*
+					 *	User interactions
+					**/
+
+					// Key events
+					angular.element(document).bind('keyup', function(event){
+						// If inline modal, do not interact
 						if(scope.inline) return;
 
-						$timeout(function(){
-							scope.methods.close();
-						});
+						if(event.which == keys.right || event.which == keys.enter){
+							$timeout(function(){
+								scope.methods.next();
+							});
+						}
+						else if(event.which == keys.left){
+							$timeout(function(){
+								scope.methods.prev();
+							});
+						}
+						else if(event.which == keys.esc){
+							$timeout(function(){
+								scope.methods.close();
+							});
+						}
 					});
-				};
+
+					// Swipe events
+					if(window.Hammer){
+						var hammerElem = new Hammer(elem[0]);
+						hammerElem.on('swiperight', function(ev){
+							$timeout(function(){
+								scope.methods.prev();
+							});
+						});
+						hammerElem.on('swipeleft', function(ev){
+							$timeout(function(){
+								scope.methods.next();
+							});
+						});
+						hammerElem.on('doubletap', function(ev){
+							if(scope.inline) return;
+
+							$timeout(function(){
+								scope.methods.close();
+							});
+						});
+					};
 
 
-				/***********************************************************/
+					/***********************************************************/
 
 
-				/*
-				 *	Actions on angular events
-				**/
-				
-				var removeClassFromDocumentBody = function(){
-					angular.element(document.body).removeClass('body-overflow-hidden');
-				};
-				
-				$rootScope.$on('$stateChangeSuccess', removeClassFromDocumentBody);
-				$rootScope.$on('$routeChangeSuccess ', removeClassFromDocumentBody);
+					/*
+					 *	Actions on angular events
+					**/
 
+					var removeClassFromDocumentBody = function(){
+						angular.element(document.body).removeClass('body-overflow-hidden');
+					};
+
+					$rootScope.$on('$stateChangeSuccess', removeClassFromDocumentBody);
+					$rootScope.$on('$routeChangeSuccess', removeClassFromDocumentBody);
+
+				}
 			}
 		}
 	}]);

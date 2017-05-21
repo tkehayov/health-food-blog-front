@@ -13,7 +13,7 @@
       'пътуване':[]
     })
     .constant('BACKEND_URL', 'http://localhost:8080')
-    .constant('BACKEND_IMAGES_URL', 'http://localhost:8081');
+    .constant('BACKEND_IMAGES_URL', 'https://s3.eu-central-1.amazonaws.com/health-food-blog-static/static');
 
     // production
     // .constant('BACKEND_URL', 'http://localhost:8080');
@@ -26,7 +26,7 @@
     vm.totalPages = [];
     vm.classAnimation = '';
     vm.receipts = [];
-    vm.imageUrl = BACKEND_IMAGES_URL + "/images";
+    vm.imageUrl = BACKEND_IMAGES_URL;
     vm.slides = [
       {
         image: 'assets/images/vegie.jpg'
@@ -60,6 +60,7 @@
           }
         }
         vm.receipts = receipts.data;
+        console.log(vm.receipts);
       }, function errorCallback() {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
