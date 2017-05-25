@@ -12,11 +12,13 @@
       'sweetland': ['мъфини'],
       'пътуване':[]
     })
-    .constant('BACKEND_URL', 'http://localhost:8080')
+    // production
+    .constant('BACKEND_URL', 'http://healtyhouse-blog-dev.eu-central-1.elasticbeanstalk.com')
     .constant('BACKEND_IMAGES_URL', 'https://s3.eu-central-1.amazonaws.com/health-food-blog-static/static');
 
-    // production
-    // .constant('BACKEND_URL', 'http://localhost:8080');
+    // locally
+    // .constant('BACKEND_URL', 'http://localhost:8080')
+    // .constant('BACKEND_IMAGES_URL', 'http://localhost:8080');
 
   /** @ngInject */
   function MainController($injector, $location, $http, BACKEND_URL, BACKEND_IMAGES_URL) {
