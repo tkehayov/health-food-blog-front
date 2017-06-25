@@ -81,7 +81,7 @@
                 croppedImage = dataURItoBlob(croppedImagetoSend);
             }
             formData.set("file", croppedImage, fileName);
-            $http.post(BACKEND_IMAGES_URL + "/image", formData, {
+            $http.post(BACKEND_URL + "/receipts/images", formData, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined

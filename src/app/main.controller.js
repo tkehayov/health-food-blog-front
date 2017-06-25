@@ -12,13 +12,12 @@
       'sweetland': ['мъфини'],
       'пътуване':[]
     })
-    // production
-    .constant('BACKEND_URL', 'http://healtyhouse-blog-dev.eu-central-1.elasticbeanstalk.com')
-    .constant('BACKEND_IMAGES_URL', 'https://s3.eu-central-1.amazonaws.com/health-food-blog-static/static');
 
-    // locally
-    // .constant('BACKEND_URL', 'http://localhost:8080')
-    // .constant('BACKEND_IMAGES_URL', 'http://localhost:8080');
+    .constant('BACKEND_URL', 'http://localhost:8080')
+    .constant('BACKEND_IMAGES_URL', 'http://localhost:8080/images');
+
+    // .constant('BACKEND_URL', 'http://85.187.98.109:8080')
+    // .constant('BACKEND_IMAGES_URL', 'http://85.187.98.109:8080/images');
 
   /** @ngInject */
   function MainController($injector, $location, $http, BACKEND_URL, BACKEND_IMAGES_URL) {
@@ -51,7 +50,7 @@
 
       $http({
         method: 'GET',
-        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=' + 2
+        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=2&sort=desc'
       }).then(function successCallback(receipts) {
 
         if (vm.totalPages.length == 0) {
