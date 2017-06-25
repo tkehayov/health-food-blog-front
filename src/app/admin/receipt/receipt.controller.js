@@ -154,6 +154,7 @@
                     }
                     $scope.addImageGallery = function() {
                         vm.uploadImage('imageGallery', $scope.imageGallery);
+                        $scope.$close();
                     }
                     $scope.name = 'top';
                 }
