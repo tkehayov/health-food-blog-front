@@ -40,6 +40,13 @@
 						</div>
 					</div>
 				</div>
+				
+				<!--pagination-->
+        <ul class="pagination">
+          <li ng-repeat="page in category.totalPages" ng-class="{'active': page === category.currentPage}">
+            <a ng-click="category.getReceipt(page)">{{page}}</a>
+          </li>
+        </ul>
 			</div>
 		</div>
 	</div>

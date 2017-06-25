@@ -61,7 +61,6 @@
           }
         }
         vm.receipts = receipts.data;
-        console.log(vm.receipts);
       }, function errorCallback() {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
