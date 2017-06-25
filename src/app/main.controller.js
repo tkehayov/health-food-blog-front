@@ -50,7 +50,7 @@
 
       $http({
         method: 'GET',
-        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=2&sort=desc'
+        url: BACKEND_URL + '/receipts/?page=' + vm.currentPage + '&size=3&sort=id,desc'
       }).then(function successCallback(receipts) {
 
         if (vm.totalPages.length == 0) {
