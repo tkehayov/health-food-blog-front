@@ -79,8 +79,6 @@
         <div class="row">
             <div class="col-md-8 col-lg-5 col-md-offset-2">
                 <h3>Коментари</h3>
-                <!--<div>-->
-                <!--<form>-->
                 <div class="form-group">
                     <label for="emailname">Име/Email</label>
                     <input data-ng-model="receipt.comments.author" type="text" class="form-control" id="emailname">
@@ -91,8 +89,6 @@
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LdNHhwUAAAAAPGBIc26oWwDB_jUSPBT8qVv1QWB"></div>
                 <button type="submit" ng-click="receipt.addComment()" class="btn btn-info">Добави</button>
-                <!--</form>-->
-                <!--</div>-->
 
                 <div class="comments">
                     <div class="panel panel-info" ng-repeat="comment in receipt.receipt.comments">

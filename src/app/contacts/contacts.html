@@ -1,0 +1,37 @@
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-13">
+			<img class="img-responsive" src="assets/images/header.jpg" alt="alt">
+		</div>
+	</div>
+
+	<div class="row">
+		<acme-navbar></acme-navbar>
+	</div>
+	<div class="row">
+		<div class="col-md-8 col-lg-5 col-md-offset-2">
+			<h4><strong>Email: email@email.com</strong></h4>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 col-lg-5 col-md-offset-2">
+			<form name="contacts.form">
+				<h3>Изпрати емайл</h3>
+				<div class="form-group">
+					<label for="emailname">Email*</label>
+					<input data-ng-model="contacts.contact.email" type="email" class="form-control" id="emailname" required>
+				</div>
+
+				<div class="form-group">
+					<label for="message">Съобщение*</label>
+					<textarea data-ng-model="contacts.contact.message" type="textarea" class="form-control" id="message" ng-minlength="10" required></textarea>
+				</div>
+				<div class="g-recaptcha" data-sitekey="6LdNHhwUAAAAAPGBIc26oWwDB_jUSPBT8qVv1QWB"></div>
+				<button type="submit" ng-click="contacts.addMessage()" class="btn btn-info">Изпрати</button>
+			</form>
+		</div>
+	</div>
+
+</div>

@@ -31,6 +31,14 @@
         controllerAs: 'category'
       });
 
+    $stateProvider
+      .state('contacts', {
+        url: '/contacts',
+        templateUrl: 'app/contacts/contacts.html',
+        controller: 'ContactsController',
+        controllerAs: 'contacts'
+      });
+
     $urlRouterProvider.otherwise('/');
   }
 
