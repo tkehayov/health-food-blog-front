@@ -39,7 +39,15 @@
         controllerAs: 'contacts'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $stateProvider
+      .state('notfound', {
+        url: '/404',
+        templateUrl: 'app/404.html',
+        controller: '',
+        controllerAs: ''
+      });
+      
+    $urlRouterProvider.otherwise('/404');
   }
 
   angular
